@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Raffles | Sterling Sportsmen Association</title>
+  <link rel="icon" type="image/jpg" href="images/logo.jpg">
+  <style>
+    /* Global Reset & Natural Palette */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #e8e3d5;
+      color: #1a2419;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header & Navigation */
+    header {
+      background-color: #1b3823;
+      color: #ffffff;
+      padding: 10px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      flex-wrap: wrap;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .brand-logo {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 15px;
+    }
+    nav a {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    nav a:hover, nav a.active {
+      background-color: #3b5a41;
+      color: #fff;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.9rem;
+    }
+    .contact-phone { font-weight: bold; }
+    .facebook-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      transition: opacity 0.2s;
+    }
+    .facebook-link:hover { opacity: 0.8; }
+    .facebook-text { font-weight: bold; }
+    .facebook-icon { width: 24px; height: 24px; }
+
+    /* Page Banner */
+    .page-banner {
+      background: #233e29;
+      color: #ffffff;
+      text-align: center;
+      padding: 40px 20px;
+      border-bottom: 4px solid #8b0000;
+    }
+    .page-banner h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .page-banner p {
+      font-size: 1.1rem;
+      color: #d1dcd0;
+    }
+
+    /* Main Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    /* Raffle Grid Layout */
+    .raffle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    /* Individual Raffle Card */
+    .raffle-card {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #d3ccba;
+    }
+    .raffle-card-header {
+      background: #1b3823;
+      color: #ffffff;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .raffle-status-badge {
+      background-color: #8b0000;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .raffle-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background-color: #1b3823;
+    }
+    .raffle-card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .raffle-card-body h2 {
+      color: #1b3823;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .raffle-info-list {
+      list-style: none;
+      margin: 15px 0;
+      font-size: 0.95rem;
+    }
+    .raffle-info-list li {
+      padding: 6px 0;
+      border-bottom: 1px dashed #e0e0e0;
+    }
+    .raffle-info-list li strong { color: #1b3823; }
+
+    /* Purchase Instructions Box */
+    .purchase-section {
+      background-color: #ffffff;
+      border-left: 6px solid #1b3823;
+      padding: 25px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    .purchase-section h2 {
+      color: #1b3823;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      font-size: 1.3rem;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .contact-card {
+      background: #f4f1e8;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #dcd5c5;
+    }
+    .contact-card h3 {
+      color: #8b0000;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1b3823;
+      color: #d1dcd0;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+      .header-left { flex-direction: column; align-items: flex-start; gap: 10px; }
+      nav ul { margin-top: 10px; }
+    }
+    @media (max-width: 768px) {
+      header { flex-direction: column; text-align: center; padding: 15px; }
+      .header-left, .header-right { width: 100%; justify-content: center; align-items: center; margin-bottom: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <div class="brand-container">
+        <img src="images/logo.jpg" alt="Sterling Sportsmen Association Logo" class="brand-logo">
+        <h2>Sterling Sportsmen Association</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Facilities</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="raffles.html" class="active">Raffles</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="contact-phone">(989) 654-9477</div>
+      <a href="https://www.facebook.com/people/Sterling-Sportsmens-Association/100057516937600/" target="_blank" class="facebook-link" title="Follow us on Facebook!">
+        <span class="facebook-text">Follow us!</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Icon" class="facebook-icon">
+      </a>
+    </div>
+  </header>
+
+  <section class="page-banner">
+    <h1>CLUB RAFFLES & DRAWINGS</h1>
+    <p>Support Sterling Sportsmen Association by participating in our active drawings!</p>
+  </section>
+
+  <main class="container">
+
+    <div class="raffle-grid">
+
+      <article class="raffle-card">
+        <div class="raffle-card-header">
+          <span style="font-weight: bold;">FEATURED DRAWING</span>
+          <span class="raffle-status-badge">Tickets On Sale Soon</span>
+        </div>
+        <img src="images/raffle-display.jpg" alt="30 Gun Raffle Display">
+        <div class="raffle-card-body">
+          <div>
+            <h2>30 Gun Raffle</h2>
+            <p>Our premier sporting drawing of the year featuring 30 quality firearms!</p>
+            <ul class="raffle-info-list">
+              <li><strong>Drawing Date:</strong> May 1, 2027</li>
+              <li><strong>Ticket Price:</strong> $50</li>
+              <li><strong>Location:</strong> Deep River Township Hall</li>
+            </ul>
+          </div>
+          <p style="font-size: 0.85rem; color: #555; margin-top: 10px;">
+            * Must be eligible to legally possess firearms to enter. Full rules and prize schedule will be posted once ticket sales officially open.
+          </p>
+        </div>
+      </article>
+
+      <article class="raffle-card">
+        <div class="raffle-card-header">
+          <span style="font-weight: bold;">UPCOMING DRAWING</span>
+          <span class="raffle-status-badge" style="background-color: #3b5a41;">Upcoming</span>
+        </div>
+        <img src="images/50-50.png" alt="Club Event Placeholder">
+        <div class="raffle-card-body">
+          <div>
+            <h2>Seasonal Club 50/50</h2>
+            <p>Stay tuned for details regarding our ongoing club maintenance and range support raffles.</p>
+            <ul class="raffle-info-list">
+              <li><strong>Drawing Date:</strong> TBD</li>
+              <li><strong>Ticket Price:</strong> TBD</li>
+              <li><strong>Benefiting:</strong> Indoor Archery & Clubhouse Upgrades</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <section class="purchase-section">
+      <h2>How to Purchase Tickets</h2>
+      <p>Raffle tickets can be purchased directly through active association board members, at monthly meetings, or by reaching out to us directly:</p>
+      
+      <div class="contact-cards">
+        <div class="contact-card">
+          <h3>Club Direct Line</h3>
+          <p><strong>Phone:</strong> (989) 654-9477</p>
+          <p><strong>Location:</strong> 339 S Melita Rd, Sterling, MI</p>
+        </div>
+        <div class="contact-card">
+          <h3>In-Person Purchasing</h3>
+          <p>Pick up tickets during indoor archery range open hours or at our monthly general meetings.</p>
+        </div>
+        <div class="contact-card">
+          <h3>Facebook Updates</h3>
+          <p>Follow our official Facebook page for announcements on exact ticket release dates and seller locations!</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Sterling Sportsmen Association | All Rights Reserved</p>
+    <p>339 S Melita Rd, Sterling, MI, 48659 | Phone: (989) 654-9477 | Designed & Maintained by Andrew Thorner</p>
+  </footer>
+
+</body>
+</html>

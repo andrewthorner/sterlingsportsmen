@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sterling Sportsmen Association</title>
+  <link rel="icon" type="image/jpg" href="images/logo.jpg">
+  <style>
+    /* Global Reset & Forest Green Natural Palette */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #e8e3d5; /* Warm natural background */
+      color: #1a2419;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Top Header & Navigation */
+    /* Header Structure */
+    header {
+      background-color: #1b3823; /* Dark Forest Green */
+      color: #ffffff;
+      padding: 10px 5%; /* Slightly reduced padding */
+      display: flex;
+      justify-content: space-between; /* Pushes content to far left and far right */
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      flex-wrap: wrap; /* Allows wrapping on small screens */
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 30px; /* Space between logo and navigation */
+    }
+
+    /* Brand and Navigation - (Keep your existing nav and brand CSS) */
+    /* ... (brand-container, brand-logo, nav ul, nav a rules remain the same) ... */
+
+    /* Header Right (Phone & Facebook) */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px; /* Space between phone number and Facebook icon */
+      font-size: 0.9rem;
+    }
+
+    .contact-phone {
+      font-weight: bold;
+    }
+
+    .facebook-link {
+      display: flex;
+      align-items: center;
+      gap: 8px; /* Space between "Follow us!" and the icon */
+      color: #fff;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .facebook-link:hover {
+      opacity: 0.8;
+    }
+
+    .facebook-text {
+      font-weight: bold;
+    }
+
+    .facebook-icon {
+      width: 24px; /* Adjust size as needed */
+      height: 24px;
+    }
+
+    /* Responsive adjustments for the new header layout */
+    @media (max-width: 1024px) {
+      .header-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      nav ul {
+        margin-top: 10px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      .header-left, .header-right {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .header-left {
+          align-items: center;
+      }
+    }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .brand-logo {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 15px;
+    }
+    nav a {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    nav a:hover, nav a.active {
+      background-color: #3b5a41;
+      color: #fff;
+    }
+
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                  url('images/SportsmanHeroBanner.jpg') center/cover no-repeat;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
+    .hero p { font-size: 1.1rem; margin-top: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); }
+
+    /* Main Section Layout */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 30px auto;
+      display: grid;
+      grid-template-columns: 1fr 300px 280px;
+      gap: 20px;
+    }
+
+    /* Section Cards */
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+    .card h2 {
+      font-size: 1.2rem;
+      border-bottom: 2px solid #1b3823;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      color: #1b3823;
+      text-transform: uppercase;
+    }
+
+    /* Announcements List */
+    .announcement-item {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .announcement-item:last-child { border-bottom: none; }
+    .announcement-item h3 { font-size: 1rem; color: #8b0000; }
+
+    /* Raffle Alert Block */
+    .raffle-banner {
+      background: #233e29;
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .raffle-badge {
+      background: #8b0000;
+      color: #fff;
+      font-weight: bold;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .raffle-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin: 10px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .raffle-banner h2 { color: #fff; border: none; padding: 0; }
+    .raffle-banner p { font-size: 0.95rem; margin: 10px 0; }
+    .raffle-date { font-weight: bold; color: #ffd700; margin-top: 10px; }
+
+    /* Clean HTML Calendar Grid */
+    .calendar-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .calendar-table th { background: #1b3823; color: #fff; padding: 5px; }
+    .calendar-table td { padding: 8px; border: 1px solid #ddd; }
+    .calendar-table td.event-day { background-color: #ffd700; font-weight: bold; }
+
+    /* Facilities Section */
+    .facilities-grid {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+    }
+    .facilities-grid h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #1b3823;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .facility-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .facility-card {
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .facility-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      background: color #2b2b2b;
+    }
+    .facility-card div { padding: 15px; }
+
+    /* Footer */
+    footer {
+      background-color: #1b3823;
+      color: #d1dcd0;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      header { flex-direction: column; gap: 15px; }
+      nav ul { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <div class="brand-container">
+        <img src="images/logo.jpg" alt="Sterling Sportsmen Association Logo" class="brand-logo">
+        <h2>Sterling Sportsmen Association</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Facilities</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="raffles.html">Raffles</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="contact-phone">(989) 654-9477</div>
+      <a href="https://www.facebook.com/people/Sterling-Sportsmens-Association/100057516937600/" target="_blank" class="facebook-link" title="Follow us on Facebook!">
+        <span class="facebook-text">Follow us!</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Icon" class="facebook-icon">
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>WELCOME TO STERLING SPORTSMEN ASSOCIATION</h1>
+    <p>Your Community for Archery, Conservation, and Sporting Tradition</p>
+  </section>
+
+  <main class="container">
+    
+    <section class="card">
+      <h2>Announcements & News</h2>
+      <div class="announcement-item">
+        <h3>⚠️ HUNTER SAFETY CLASS DATES COMING SOON</h3>
+        <p>Hunter safety class dates are currently being scheduled for the upcoming season. Check back soon for registration details!</p>
+      </div>
+      <div class="announcement-item">
+        <h3>✅ MEMBER MONTHLY MEETING EVERY 1ST TUESDAY OF THE MONTH</h3>
+        <p>Monthly board and member meeting dates will be posted shortly. All members are encouraged to attend.</p>
+      </div>
+    </section>
+
+    <section class="raffle-banner">
+      <span class="raffle-badge">RAFFLE ALERT</span>
+      <img src="images/raffle-display.jpg" alt="30 Gun Raffle Display" class="raffle-img">
+      <h2>$50 per ticket</h2>
+      <p>Only 2000 sold!</p>
+      <div class="raffle-date">DRAWING DATE: MAY 1, 2027</div>
+      <p style="font-size: 0.85rem; margin-top: 15px;">
+        Tickets On Sale Soon!<br>
+        Contact Club for Details: (989) 654-9477
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Event Calendar</h2>
+      <table class="calendar-table">
+        <thead>
+          <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+        </thead>
+        <tbody>
+          <tr><td></td><td></td><td>1</td><td>2</td><td class="event-day" title="Meeting TBD">3</td><td>4</td><td>5</td></tr>
+          <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+          <tr><td>13</td><td>14</td><td class="event-day" title="Class TBD">15</td><td class="event-day" title="Class TBD">16</td><td>17</td><td>18</td><td>19</td></tr>
+          <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+          <tr><td>27</td><td>28</td><td class="event-day" title="Board TBD">29</td><td>30</td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.75rem; color:#666; margin-top:8px;">* Highlighted dates indicate club events or meetings.</p>
+    </section>
+
+  </main>
+
+  <section class="facilities-grid">
+    <h2>Our Facilities</h2>
+    <div class="facility-cards">
+      <div class="facility-card">
+        <img src="images/clubhouse.jpg" alt="Clubhouse">
+        <div>
+          <h3>CLUBHOUSE</h3>
+          <p>Common area available to active members for meetings, events, and gatherings.</p>
+        </div>
+      </div>
+      <div class="facility-card">
+        <img src="images/archeryrange.jpg" alt="Indoor Archery">
+        <div>
+          <h3>INDOOR ARCHERY RANGE</h3>
+          <p>Dedicated target archery range for practice, leagues, and skill development.</p>
+        </div>
+      </div>
+      <div class="facility-card">
+        <img src="images/RifleRiver.jpg" alt="Rifle River Site">
+        <div>
+          <h3>RIFLE RIVER SITE</h3>
+          <p>Surrounding property grounds providing scenic natural spaces for outdoor recreation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sterling Sportsmen Association | All Rights Reserved</p>
+    <p>339 S Melita Rd, Sterling, MI, 48659 | Phone: (989) 654-9477 | Desgined & Maintained by Andrew Thorner</p>
+  </footer>
+
+</body>
+</html>
