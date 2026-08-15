@@ -1,0 +1,424 @@
+/* ==========================================================================
+   STERLING SPORTSMEN ASSOCIATION - MASTER STYLESHEET
+   ========================================================================== */
+
+/* Global Reset & Natural Palette */
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e8e3d5; /* Warm natural background */
+  color: #1a2419;
+  line-height: 1.5;
+}
+
+a { 
+  color: inherit; 
+  text-decoration: none; 
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+header {
+  background-color: #1b3823; /* Dark Forest Green */
+  color: #ffffff;
+  padding: 10px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand-logo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.brand-container h2 {
+  line-height: 1.2;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+nav a:hover, 
+nav a.active {
+  background-color: #3b5a41;
+  color: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.contact-phone { 
+  font-weight: bold; 
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.facebook-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #fff;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.facebook-link:hover { 
+  opacity: 0.8; 
+}
+
+.facebook-text { 
+  font-weight: bold; 
+}
+
+.facebook-icon { 
+  width: 24px; 
+  height: 24px; 
+}
+
+/* ==========================================================================
+   PAGE BANNERS & CONTAINERS
+   ========================================================================== */
+.page-banner {
+  background: #233e29;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+  border-bottom: 4px solid #8b0000;
+}
+
+.page-banner h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.page-banner p {
+  font-size: 1.1rem;
+  color: #d1dcd0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 300px 280px;
+  gap: 20px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  border-bottom: 2px solid #1b3823;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  color: #1b3823;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PAGE SPECIFIC: HOMEPAGE (index.html)
+   ========================================================================== */
+
+/* Hero Banner */
+.hero {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-align: center;
+  padding: 0 20px;
+  overflow: hidden; /* Prevents slide images from spilling outside the banner */
+}
+
+/* Background dark overlay and container */
+.hero-slides {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Base style for individual slides */
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out; /* Smooth cross-fade speed */
+}
+
+/* Dark tint over all images so white text remains easy to read */
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); 
+}
+
+/* The visible active slide */
+.hero-slide.active {
+  opacity: 1;
+}
+
+/* Text overlay on top of the slideshow */
+.hero-content {
+  position: relative;
+  z-index: 2; /* Sits above background images */
+}
+
+.hero-content h1 { 
+  font-size: 2.2rem; 
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7); 
+}
+
+.hero-content p { 
+  font-size: 1.1rem; 
+  margin-top: 10px; 
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7); 
+}
+
+/* Homepage Main Layout Grid */
+/* .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 300px 280px;
+  gap: 20px;
+}*/
+
+/* Announcements List */
+.announcement-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.announcement-item:last-child { border-bottom: none; }
+.announcement-item h3 { font-size: 1rem; color: #8b0000; }
+
+/* Raffle Alert Block */
+.raffle-banner {
+    background: #233e29;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+}
+.raffle-badge {
+    background: #8b0000;
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.raffle-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 10px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.raffle-banner h2 { color: #fff; border: none; padding: 0; }
+.raffle-banner p { font-size: 0.95rem; margin: 10px 0; }
+.raffle-date { font-weight: bold; color: #ffd700; margin-top: 10px; }
+
+/* Clean HTML Calendar Grid */
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 0.85rem;
+}
+.calendar-table th { background: #1b3823; color: #fff; padding: 5px; }
+.calendar-table td { padding: 8px; border: 1px solid #ddd; }
+.calendar-table td.event-day { background-color: #ffd700; font-weight: bold; }
+/* Homepage Facilities Section */
+.facilities-grid {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+}
+
+.facilities-grid h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #1b3823;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.facility-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.facility-card {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.facility-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  background-color: #fff;
+}
+
+.facility-card div { 
+  padding: 15px; 
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+  background-color: #1b3823;
+  color: #d1dcd0;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .header-left { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
+  }
+  nav ul { 
+    margin-top: 10px; 
+  }
+}
+
+@media (max-width: 900px) {
+  .container { 
+    grid-template-columns: 1fr; 
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 10px;
+  }
+  
+  .header-left {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .brand-container {
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .brand-logo {
+    width: 55px;
+    height: 55px;
+  }
+
+  .brand-container h2 {
+    font-size: 1.4rem;
+    text-align: left;
+  }
+
+  nav ul {
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  nav a {
+    font-size: 1.1rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+
+  .header-right {
+    justify-content: center;
+    width: 100%;
+    border-top: 1px solid #2d5438;
+    padding-top: 10px;
+    margin-top: 8px;
+  }
+}
