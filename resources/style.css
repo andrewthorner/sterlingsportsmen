@@ -24,7 +24,24 @@ a {
 /* ==========================================================================
    HEADER & NAVIGATION
    ========================================================================== */
-header {
+#header-placeholder {
+  min-height: 95px; /* Reserves space for desktop header */
+  background-color: #1b3823; /* Dark Forest Green background while loading */
+}
+
+/* Mobile Height Adjustment */
+@media (max-width: 768px) {
+  #header-placeholder {
+    min-height: 170px; /* Taller reserved space for stacked mobile layout */
+  }
+}
+
+#footer-placeholder {
+  min-height: 80px;
+  background-color: #1b3823;
+}
+
+   header {
   background-color: #1b3823; /* Dark Forest Green */
   color: #ffffff;
   padding: 10px 5%;
@@ -117,7 +134,28 @@ nav a.active {
   width: 24px; 
   height: 24px; 
 }
+/* ==========================================================================
+   HAMBURGER MENU STYLES
+   ========================================================================== */
 
+/* Hide button by default on desktop screens */
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px;
+}
+
+.hamburger-bar {
+  width: 26px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
 /* ==========================================================================
    PAGE BANNERS & CONTAINERS
    ========================================================================== */
@@ -238,16 +276,6 @@ nav a.active {
   margin-top: 10px; 
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7); 
 }
-
-/* Homepage Main Layout Grid */
-/* .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 30px auto;
-  display: grid;
-  grid-template-columns: 1fr 300px 280px;
-  gap: 20px;
-}*/
 
 /* Announcements List */
 .announcement-item {
@@ -563,66 +591,67 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .container { 
-    grid-template-columns: 1fr; 
-  }
+  .container { grid-template-columns: 1fr; }
+  .membership-grid { grid-template-columns: 1fr; }
+  .facility-item { flex-direction: column; text-align: center; }
+  .facility-img { width: 100%; height: 200px; } 
 }
 
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    text-align: center;
-    padding: 12px 10px;
-  }
-  
   .header-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Show the 3-line hamburger button */
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  /* Hide navigation menu by default on mobile */
+  nav {
+    width: 100%;
+  }
+
+  .nav-menu {
+    display: none; /* Hidden until toggled open */
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    background-color: #142a1a; /* Slightly darker green drop-down background */
+    padding: 10px 0;
+    border-radius: 6px;
+  }
+
+  /* Class added by JavaScript when button is clicked */
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: 10px 0;
     width: 100%;
   }
 
-  .brand-container {
-    flex-direction: row !important;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
+  /* Optional: Animate hamburger into an 'X' when open */
+  .mobile-menu-toggle.open .hamburger-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
   }
-
-  .brand-logo {
-    width: 55px;
-    height: 55px;
+  .mobile-menu-toggle.open .hamburger-bar:nth-child(2) {
+    opacity: 0;
   }
-
-  .brand-container h2 {
-    font-size: 1.4rem;
-    text-align: left;
-  }
-
-  nav ul {
-    justify-content: center;
-    gap: 15px;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  nav a {
-    font-size: 1.1rem;
-    padding: 6px 12px;
-    border-radius: 4px;
-  }
-
-  .header-right {
-    justify-content: center;
-    width: 100%;
-    border-top: 1px solid #2d5438;
-    padding-top: 10px;
-    margin-top: 8px;
+  .mobile-menu-toggle.open .hamburger-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 }
-@media (max-width: 900px) {
-  .membership-grid { grid-template-columns: 1fr; }
-  .facility-item { flex-direction: column; text-align: center; }
-  .facility-img { width: 100%; height: 200px; }
-}
+
+
+
