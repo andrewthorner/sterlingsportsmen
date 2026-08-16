@@ -66,5 +66,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(nextSlide, slideInterval);
   }
+// 4. MULTI-SLIDESHOW HANDLER (Runs slideshows for facility cards)
+  const slideshows = document.querySelectorAll(".facility-slideshow");
+  slideshows.forEach(slideshow => {
+    const slides = slideshow.querySelectorAll(".facility-slide");
+    if (slides.length < 2) return; // Skip if only 1 image
 
+    let currentSlide = 0;
+    const intervalTime = parseInt(slideshow.getAttribute("data-interval")) || 4000;
+
+    setInterval(() => {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }, intervalTime);
+  });
 });
