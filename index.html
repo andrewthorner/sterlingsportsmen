@@ -31,45 +31,52 @@
 
   <main class="container">
     
-    <section class="card">
-      <h2>Announcements & News</h2>
-      <div class="announcement-item">
-        <h3>⚠️ HUNTER SAFETY CLASS DATES COMING SOON</h3>
-        <p>Hunter safety class dates are currently being scheduled for the upcoming season. Check back soon for registration details!</p>
-      </div>
-      <div class="announcement-item">
-        <h3>✅ MEMBER MONTHLY MEETING EVERY 1ST TUESDAY OF THE MONTH</h3>
-        <p>All members are encouraged to attend. Meeting begins at 7pm at the clubhouse</p>
-      </div>
-    </section>
+  <section class="card announcements-card">
+    <h2>Announcements & News</h2>
+    
+    <div id="pinned-announcement"></div>
+
+    <div id="news-scrollbox" class="news-scrollbox"></div>
+  </section>
+
+  <div id="news-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="modal-close" class="modal-close-btn">&times;</button>
+      <h3 id="modal-title"></h3>
+      <div id="modal-date" class="modal-date"></div>
+      <hr class="modal-divider">
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
 
     <section class="raffle-banner">
-      <span class="raffle-badge">RAFFLE ALERT</span>
-      <img src="images/raffle-display.jpg" alt="30 Gun Raffle Display" class="raffle-img">
-      <h2>$50 per ticket</h2>
-      <p>Only 1000 sold!</p>
-      <div class="raffle-date">DRAWING DATE: MAY 1, 2027</div>
-      <p style="font-size: 0.85rem; margin-top: 15px;">
-        Tickets On Sale Soon!<br>
-        Contact Club for Details: (989) 654-9477
-      </p>
+      <a href="raffles.html" class="raffle-banner-link" title="Click to view all raffle details and ticket info">
+        <span class="raffle-badge">RAFFLE ALERT</span>
+        <img src="images/raffle-display.jpg" alt="30 Gun Raffle Display" class="raffle-img">
+        <h2>$50 per ticket</h2>
+        <p>Only 1000 sold!</p>
+        <div class="raffle-date">DRAWING DATE: MAY 1, 2027</div>
+        <p style="font-size: 0.85rem; margin-top: 15px;">
+          Tickets On Sale Soon!<br>
+          Contact Club for Details: (989) 654-9477
+        </p>
+        <div class="raffle-click-hint">Click for Full Raffle Details →</div>
+      </a>
     </section>
 
     <section class="card">
-      <h2>September 2026 Calendar</h2>
-      <table class="calendar-table">
-        <thead>
-          <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
-        </thead>
-        <tbody>
-          <tr><td></td><td></td><td class="event-day" title="Members Meeting @ 7pm">1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
-          <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td class="event-day" title="Youth Deer Hunt Weekend">12</td></tr>
-          <tr><td class="event-day" title="Youth Deer Hunt Weekend">13</td><td>14</td><td class="event-day" title="Board Members Meeting @ 7pm">15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
-          <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
-          <tr><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:0.75rem; color:#666; margin-top:8px;">* Highlighted dates indicate club events or meetings.</p>
+      <div class="calendar-header">
+        <h2 style="border: none; padding: 0; margin: 0;">Events Calendar</h2>
+        <select id="month-select" class="month-dropdown" aria-label="Select Calendar Month">
+          </select>
+      </div>
+
+      <div id="calendar-container">
+        </div>
+
+      <p style="font-size:0.75rem; color:#666; margin-top:8px;">
+        * Highlighted dates indicate club events. Click/tap any highlighted day for event details.
+      </p>
     </section>
 
   </main>
