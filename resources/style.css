@@ -2,7 +2,9 @@
    STERLING SPORTSMEN ASSOCIATION - MASTER STYLESHEET
    ========================================================================== */
 
-/* Global Reset & Natural Palette */
+/* --------------------------------------------------------------------------
+   1. GLOBAL RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
 * { 
   box-sizing: border-box; 
   margin: 0; 
@@ -21,19 +23,12 @@ a {
   text-decoration: none; 
 }
 
-/* ==========================================================================
-   HEADER & NAVIGATION
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   2. HEADER & FOOTER PLACEHOLDERS (Prevents Layout Shift)
+   -------------------------------------------------------------------------- */
 #header-placeholder {
   min-height: 95px; /* Reserves space for desktop header */
   background-color: #1b3823; /* Dark Forest Green background while loading */
-}
-
-/* Mobile Height Adjustment */
-@media (max-width: 768px) {
-  #header-placeholder {
-    min-height: 170px; /* Taller reserved space for stacked mobile layout */
-  }
 }
 
 #footer-placeholder {
@@ -41,7 +36,10 @@ a {
   background-color: #1b3823;
 }
 
-   header {
+/* --------------------------------------------------------------------------
+   3. SHARED NAVIGATION & HEADER
+   -------------------------------------------------------------------------- */
+header {
   background-color: #1b3823; /* Dark Forest Green */
   color: #ffffff;
   padding: 10px 5%;
@@ -134,13 +132,10 @@ nav a.active {
   width: 24px; 
   height: 24px; 
 }
-/* ==========================================================================
-   HAMBURGER MENU STYLES
-   ========================================================================== */
 
-/* Hide button by default on desktop screens */
+/* Mobile Hamburger Toggle */
 .mobile-menu-toggle {
-  display: none;
+  display: none; /* Hidden on desktop */
   background: transparent;
   border: none;
   cursor: pointer;
@@ -156,9 +151,10 @@ nav a.active {
   border-radius: 2px;
   transition: all 0.3s ease;
 }
-/* ==========================================================================
-   PAGE BANNERS & CONTAINERS
-   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   4. PAGE BANNERS & REUSABLE CARDS
+   -------------------------------------------------------------------------- */
 .page-banner {
   background: #233e29;
   color: #ffffff;
@@ -178,15 +174,6 @@ nav a.active {
   color: #d1dcd0;
 }
 
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 30px auto;
-  display: grid;
-  grid-template-columns: 1fr 300px 280px;
-  gap: 20px;
-}
-
 .card {
   background: #ffffff;
   padding: 20px;
@@ -203,11 +190,19 @@ nav a.active {
   text-transform: uppercase;
 }
 
-/* ==========================================================================
-   PAGE SPECIFIC: HOMEPAGE (index.html)
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   5. PAGE SPECIFIC: HOMEPAGE (index.html)
+   -------------------------------------------------------------------------- */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 300px 280px;
+  gap: 20px;
+}
 
-/* Hero Banner */
+/* Hero Slideshow */
 .hero {
   position: relative;
   height: 320px;
@@ -217,10 +212,9 @@ nav a.active {
   color: #ffffff;
   text-align: center;
   padding: 0 20px;
-  overflow: hidden; /* Prevents slide images from spilling outside the banner */
+  overflow: hidden;
 }
 
-/* Background dark overlay and container */
 .hero-slides {
   position: absolute;
   top: 0;
@@ -230,7 +224,6 @@ nav a.active {
   z-index: 1;
 }
 
-/* Base style for individual slides */
 .hero-slide {
   position: absolute;
   top: 0;
@@ -241,10 +234,9 @@ nav a.active {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out; /* Smooth cross-fade speed */
+  transition: opacity 1.5s ease-in-out;
 }
 
-/* Dark tint over all images so white text remains easy to read */
 .hero-slide::before {
   content: "";
   position: absolute;
@@ -255,15 +247,13 @@ nav a.active {
   background: rgba(0, 0, 0, 0.5); 
 }
 
-/* The visible active slide */
 .hero-slide.active {
   opacity: 1;
 }
 
-/* Text overlay on top of the slideshow */
 .hero-content {
   position: relative;
-  z-index: 2; /* Sits above background images */
+  z-index: 2;
 }
 
 .hero-content h1 { 
@@ -277,56 +267,264 @@ nav a.active {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7); 
 }
 
-/* Announcements List */
-.announcement-item {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+/* Dynamic Announcements, Scrollbox & Modal Popup */
+.pinned-item {
+  background-color: #f4f1e8;
+  border-left: 5px solid #8b0000;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
-.announcement-item:last-child { border-bottom: none; }
-.announcement-item h3 { font-size: 1rem; color: #8b0000; }
 
-/* Raffle Alert Block */
+.pinned-badge {
+  display: inline-block;
+  background-color: #8b0000;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.news-scrollbox {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.news-scrollbox::-webkit-scrollbar {
+  width: 6px;
+}
+.news-scrollbox::-webkit-scrollbar-thumb {
+  background: #1b3823;
+  border-radius: 3px;
+}
+
+.announcement-item {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.announcement-item:last-child {
+  border-bottom: none;
+}
+
+.announcement-item.clickable {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.announcement-item.clickable:hover {
+  background-color: #f9f8f3;
+}
+
+.announcement-item h3 {
+  font-size: 0.98rem;
+  color: #1b3823;
+}
+
+.news-click-hint {
+  font-size: 0.78rem;
+  color: #8b0000;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+/* Modal Popup Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 580px;
+  border-radius: 8px;
+  padding: 25px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-top: 6px solid #1b3823;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  color: #8b0000;
+}
+
+#modal-title {
+  color: #1b3823;
+  font-size: 1.3rem;
+  padding-right: 30px;
+}
+
+.modal-date {
+  font-size: 0.85rem;
+  color: #8b0000;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.modal-divider {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 12px 0 15px 0;
+}
+
+.modal-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #2b2b2b;
+}
+
+/* Homepage Raffle Teaser Banner */
 .raffle-banner {
-    background: #233e29;
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 6px;
-    text-align: center;
+  background: #233e29;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.raffle-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.raffle-banner-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
 .raffle-badge {
-    background: #8b0000;
-    color: #fff;
-    font-weight: bold;
-    padding: 4px 10px;
-    font-size: 0.8rem;
-    border-radius: 3px;
-    display: inline-block;
-    margin-bottom: 10px;
+  background: #8b0000;
+  color: #fff;
+  font-weight: bold;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 10px;
 }
+
 .raffle-img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: 6px;
-    margin: 10px 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 10px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
+
 .raffle-banner h2 { color: #fff; border: none; padding: 0; }
 .raffle-banner p { font-size: 0.95rem; margin: 10px 0; }
 .raffle-date { font-weight: bold; color: #ffd700; margin-top: 10px; }
 
-/* Clean HTML Calendar Grid */
-.calendar-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: center;
-    font-size: 0.85rem;
+.raffle-click-hint {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #8b0000;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
 }
+
+.raffle-banner:hover .raffle-click-hint {
+  background-color: #a30000;
+}
+
+/* Homepage Dynamic Calendar */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #1b3823;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.month-dropdown {
+  background-color: #1b3823;
+  color: #ffffff;
+  border: 1px solid #1b3823;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-weight: bold;
+  cursor: pointer;
+  max-width: 160px;
+  box-sizing: border-box;
+}
+
+.month-dropdown:focus {
+  outline: none;
+  background-color: #3b5a41;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
 .calendar-table th { background: #1b3823; color: #fff; padding: 5px; }
 .calendar-table td { padding: 8px; border: 1px solid #ddd; }
-.calendar-table td.event-day { background-color: #ffd700; font-weight: bold; }
-/* Homepage Facilities Section */
+
+.calendar-table td.event-day {
+  background-color: #ffd700;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.calendar-table td.event-day:active {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* Homepage Facilities Section Grid */
 .facilities-grid {
   width: 90%;
   max-width: 1200px;
@@ -366,9 +564,9 @@ nav a.active {
   padding: 15px; 
 }
 
-/* ==========================================================================
-   PAGE SPECIFIC: ABOUT US (about.html)
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   6. PAGE SPECIFIC: ABOUT US (about.html)
+   -------------------------------------------------------------------------- */
 .containerabout {
   width: 90%;
   max-width: 1200px;
@@ -392,7 +590,6 @@ nav a.active {
   text-transform: uppercase;
 }
 
-/* Board Member Cards Grid */
 .board-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -428,7 +625,6 @@ nav a.active {
   margin-bottom: 4px;
 }
 
-/* External Resource Buttons */
 .resource-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -458,18 +654,15 @@ nav a.active {
   color: #ffd700;
 }
 
-
-/* ==========================================================================
-   PAGE SPECIFIC: Raffle (raffle.html)
-   ========================================================================== */
-/* Main Container */
+/* --------------------------------------------------------------------------
+   7. PAGE SPECIFIC: RAFFLES (raffles.html)
+   -------------------------------------------------------------------------- */
 .containerr {
   width: 90%;
   max-width: 1200px;
   margin: 30px auto;
 }
 
-/* Raffle Grid Layout */
 .raffle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -477,7 +670,6 @@ nav a.active {
   margin-bottom: 40px;
 }
 
-/* Individual Raffle Card */
 .raffle-card {
   background: #ffffff;
   border-radius: 8px;
@@ -487,6 +679,7 @@ nav a.active {
   flex-direction: column;
   border: 1px solid #d3ccba;
 }
+
 .raffle-card-header {
   background: #1b3823;
   color: #ffffff;
@@ -495,6 +688,7 @@ nav a.active {
   justify-content: space-between;
   align-items: center;
 }
+
 .raffle-status-badge {
   background-color: #8b0000;
   color: #ffffff;
@@ -504,12 +698,14 @@ nav a.active {
   border-radius: 4px;
   text-transform: uppercase;
 }
+
 .raffle-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
   background-color: #1b3823;
 }
+
 .raffle-card-body {
   padding: 20px;
   flex-grow: 1;
@@ -517,23 +713,26 @@ nav a.active {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .raffle-card-body h2 {
   color: #1b3823;
   font-size: 1.4rem;
   margin-bottom: 10px;
 }
+
 .raffle-info-list {
   list-style: none;
   margin: 15px 0;
   font-size: 0.95rem;
 }
+
 .raffle-info-list li {
   padding: 6px 0;
   border-bottom: 1px dashed #e0e0e0;
 }
+
 .raffle-info-list li strong { color: #1b3823; }
 
-/* Purchase Instructions Box */
 .purchase-section {
   background-color: #ffffff;
   border-left: 6px solid #1b3823;
@@ -542,33 +741,37 @@ nav a.active {
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   margin-bottom: 40px;
 }
+
 .purchase-section h2 {
   color: #1b3823;
   margin-bottom: 15px;
   text-transform: uppercase;
   font-size: 1.3rem;
 }
+
 .contact-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 15px;
   margin-top: 15px;
 }
+
 .contact-card {
   background: #f4f1e8;
   padding: 15px;
   border-radius: 5px;
   border: 1px solid #dcd5c5;
 }
+
 .contact-card h3 {
   color: #8b0000;
   font-size: 1rem;
   margin-bottom: 5px;
 }
 
-/* ==========================================================================
-   PAGE SPECIFIC: FACILITIES (facilities.html)
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   8. PAGE SPECIFIC: FACILITIES (facilities.html)
+   -------------------------------------------------------------------------- */
 .containerf {
   width: 90%;
   max-width: 1200px;
@@ -588,7 +791,6 @@ nav a.active {
   border: 1px solid #d3ccba;
 }
 
-/* Facility Card Slideshow Frame */
 .facility-slideshow {
   position: relative;
   width: 100%;
@@ -613,7 +815,6 @@ nav a.active {
   opacity: 1;
 }
 
-/* Facility Card Content */
 .facility-content {
   padding: 25px;
   display: flex;
@@ -704,25 +905,9 @@ nav a.active {
   margin-bottom: 10px;
 }
 
-/* Mobile responsiveness for rules */
-@media (max-width: 768px) {
-  .rules-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Responsive adjustments for facilities */
-@media (max-width: 900px) {
-  .facility-card-full {
-    grid-template-columns: 1fr;
-  }
-  .facility-slideshow {
-    height: 220px;
-  }
-}
-/* ==========================================================================
-   PAGE SPECIFIC: EVENTS (events.html)
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   9. PAGE SPECIFIC: EVENTS (events.html)
+   -------------------------------------------------------------------------- */
 .containere {
   width: 90%;
   max-width: 1200px;
@@ -749,7 +934,6 @@ nav a.active {
   text-transform: uppercase;
 }
 
-/* Featured Banquet Card Layout */
 .featured-event {
   display: grid;
   grid-template-columns: 400px 1fr;
@@ -808,7 +992,6 @@ nav a.active {
   font-size: 0.9rem;
 }
 
-/* Grid for standard upcoming events */
 .upcoming-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -828,13 +1011,12 @@ nav a.active {
   padding: 20px;
 }
 
-/* Accordion / Collapsible Collapsible Section */
 .past-events-accordion {
   cursor: pointer;
 }
 
 .accordion-header {
-  list-style: none; /* Removes browser default arrow */
+  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -895,23 +1077,9 @@ details[open] .accordion-icon {
   margin-bottom: 6px;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 800px) {
-  .featured-event {
-    grid-template-columns: 1fr;
-  }
-  .past-event-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .past-event-thumb {
-    width: 100%;
-    height: 180px;
-  }
-}
-/* ==========================================================================
-   PAGE SPECIFIC: Membership (membership.html)
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   10. PAGE SPECIFIC: MEMBERSHIP (membership.html)
+   -------------------------------------------------------------------------- */
 .containerm {
   width: 90%;
   max-width: 1200px;
@@ -925,6 +1093,7 @@ details[open] .accordion-icon {
   box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   margin-bottom: 25px;
 }
+
 .cardm h2 {
   font-size: 1.4rem;
   border-bottom: 2px solid #1b3823;
@@ -934,7 +1103,6 @@ details[open] .accordion-icon {
   text-transform: uppercase;
 }
 
-   /* Facility Cards */
 .facility-item {
   display: flex;
   gap: 20px;
@@ -943,7 +1111,13 @@ details[open] .accordion-icon {
   border-bottom: 1px solid #e0e0e0;
   align-items: center;
 }
-.facility-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.facility-item:last-child { 
+  border-bottom: none; 
+  margin-bottom: 0; 
+  padding-bottom: 0; 
+}
+
 .facility-img {
   width: 200px;
   height: 130px;
@@ -951,18 +1125,23 @@ details[open] .accordion-icon {
   border-radius: 6px;
   background-color: #1b3823;
 }
-.facility-info h3 { color: #1b3823; margin-bottom: 5px; }
 
-/* Benefits List */
+.facility-info h3 { 
+  color: #1b3823; 
+  margin-bottom: 5px; 
+}
+
 .benefits-list {
   list-style-type: square;
   padding-left: 20px;
   margin-top: 10px;
 }
+
 .benefits-list li {
   margin-bottom: 10px;
   font-size: 1rem;
 }
+
 .membership-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -970,7 +1149,6 @@ details[open] .accordion-icon {
   margin-bottom: 40px;
 }
 
-/* Sidebar / Action Card */
 .action-cardm {
   background: #1b3823;
   color: #ffffff;
@@ -980,12 +1158,14 @@ details[open] .accordion-icon {
   position: sticky;
   top: 20px;
 }
+
 .action-cardm h2 {
   color: #ffffff;
   font-size: 1.4rem;
   margin-bottom: 15px;
   text-transform: uppercase;
 }
+
 .btn-downloadm {
   display: inline-block;
   background-color: #8b0000;
@@ -997,13 +1177,14 @@ details[open] .accordion-icon {
   text-transform: uppercase;
   transition: background 0.2s;
 }
+
 .btn-downloadm:hover {
   background-color: #a30000;
 }
 
-/* ==========================================================================
-   PAGE SPECIFIC: CONTACT US (contact.html)
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   11. PAGE SPECIFIC: CONTACT US (contact.html)
+   -------------------------------------------------------------------------- */
 .containerc {
   width: 90%;
   max-width: 1200px;
@@ -1033,7 +1214,6 @@ details[open] .accordion-icon {
   text-transform: uppercase;
 }
 
-/* Form Controls */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -1087,7 +1267,6 @@ details[open] .accordion-icon {
   background-color: #8b0000;
 }
 
-/* Contact Info Items */
 .info-item {
   display: flex;
   gap: 15px;
@@ -1122,16 +1301,9 @@ details[open] .accordion-icon {
   overflow: hidden;
 }
 
-/* Responsive Grid */
-@media (max-width: 850px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   12. FOOTER
+   -------------------------------------------------------------------------- */
 footer {
   background-color: #1b3823;
   color: #d1dcd0;
@@ -1140,9 +1312,9 @@ footer {
   font-size: 0.85rem;
 }
 
-/* ==========================================================================
-   RESPONSIVE BREAKPOINTS
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   13. RESPONSIVE BREAKPOINTS (Media Queries)
+   -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .header-left { 
     flex-direction: column; 
@@ -1159,9 +1331,25 @@ footer {
   .membership-grid { grid-template-columns: 1fr; }
   .facility-item { flex-direction: column; text-align: center; }
   .facility-img { width: 100%; height: 200px; } 
+  .facility-card-full { grid-template-columns: 1fr; }
+  .facility-slideshow { height: 220px; }
+}
+
+@media (max-width: 850px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 800px) {
+  .featured-event { grid-template-columns: 1fr; }
+  .past-event-item { flex-direction: column; align-items: flex-start; }
+  .past-event-thumb { width: 100%; height: 180px; }
 }
 
 @media (max-width: 768px) {
+  #header-placeholder {
+    min-height: 170px; /* Reserved header space on mobile */
+  }
+
   .header-left {
     display: flex;
     justify-content: space-between;
@@ -1169,27 +1357,24 @@ footer {
     width: 100%;
   }
 
-  /* Show the 3-line hamburger button */
   .mobile-menu-toggle {
     display: flex;
   }
 
-  /* Hide navigation menu by default on mobile */
   nav {
     width: 100%;
   }
 
   .nav-menu {
-    display: none; /* Hidden until toggled open */
+    display: none;
     flex-direction: column;
     width: 100%;
     margin-top: 15px;
-    background-color: #142a1a; /* Slightly darker green drop-down background */
+    background-color: #142a1a;
     padding: 10px 0;
     border-radius: 6px;
   }
 
-  /* Class added by JavaScript when button is clicked */
   .nav-menu.active {
     display: flex;
   }
@@ -1205,7 +1390,6 @@ footer {
     width: 100%;
   }
 
-  /* Optional: Animate hamburger into an 'X' when open */
   .mobile-menu-toggle.open .hamburger-bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
@@ -1215,7 +1399,8 @@ footer {
   .mobile-menu-toggle.open .hamburger-bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
+
+  .rules-grid {
+    grid-template-columns: 1fr;
+  }
 }
-
-
-
