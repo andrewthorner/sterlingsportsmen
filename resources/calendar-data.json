@@ -1,0 +1,115 @@
+{
+    "August 2026": {
+    "year": 2026,
+    "monthIndex": 7,
+    "events": {
+      "4": "Members Meeting @ 7pm",
+      "12": "Youth Deer Hunt Weekend",
+      "18": "Board Members Meeting @ 7pm",
+      "22": "Hunter's Safety Class",
+      "23": "Hunter's Safety Class"
+    }
+  },
+    "September 2026": {
+    "year": 2026,
+    "monthIndex": 8,
+    "events": {
+      "1": "Members Meeting @ 7pm",
+      "12": "Youth Deer Hunt Weekend",
+      "13": "Youth Deer Hunt Weekend",
+      "15": "Board Members Meeting @ 7pm"
+    }
+  },
+  "October 2026": {
+    "year": 2026,
+    "monthIndex": 9,
+    "events": {
+      "1": "Archery League Opener",
+      "6": "Members Meeting @ 7pm",
+      "20": "Board Members Meeting @ 7pm"
+    }
+  },
+  "November 2026": {
+    "year": 2026,
+    "monthIndex": 10,
+    "events": {
+      "3": "Members Meeting @ 7pm",
+      "15": "Annual Buck Pole @ Standish American Legion",
+      "17": "Board Members Meeting @ 7pm"
+    }
+  },
+  "December 2026": {
+    "year": 2026,
+    "monthIndex": 11,
+    "events": {
+      "1": "Members Meeting @ 7pm",
+      "15": "Board Members Meeting @ 7pm"
+    }
+  },
+  "January 2027": {
+    "year": 2027,
+    "monthIndex": 0,
+    "events": {
+      "5": "Members Meeting @ 7pm",
+      "19": "Board Members Meeting @ 7pm"
+    }
+  },
+  "February 2027": {
+    "year": 2027,
+    "monthIndex": 1,
+    "events": {
+      "2": "Members Meeting @ 7pm",
+      "16": "Board Members Meeting @ 7pm"
+    }
+  },
+  "March 2027": {
+    "year": 2027,
+    "monthIndex": 2,
+    "events": {
+      "2": "Members Meeting @ 7pm",
+      "16": "Board Members Meeting @ 7pm",
+      "20": "Annual Sportsmen Banquet"
+    }
+  },
+  "April 2027": {
+    "year": 2027,
+    "monthIndex": 3,
+    "events": {
+      "6": "Members Meeting @ 7pm",
+      "20": "Board Members Meeting @ 7pm"
+    }
+  },
+  "May 2027": {
+    "year": 2027,
+    "monthIndex": 4,
+    "events": {
+      "1": "30-Gun Raffle Drawing",
+      "4": "Members Meeting @ 7pm",
+      "18": "Board Members Meeting @ 7pm"
+    }
+  },
+  "June 2027": {
+    "year": 2027,
+    "monthIndex": 5,
+    "events": {
+      "1": "Members Meeting @ 7pm",
+      "15": "Board Members Meeting @ 7pm"
+    }
+  },
+  "July 2027": {
+    "year": 2027,
+    "monthIndex": 6,
+    "events": {
+      "6": "Members Meeting @ 7pm",
+      "20": "Board Members Meeting @ 7pm"
+    }
+  },
+  "August 2027": {
+    "year": 2027,
+    "monthIndex": 7,
+    "events": {
+      "3": "Members Meeting @ 7pm",
+      "17": "Board Members Meeting @ 7pm"
+    }
+  }
+}

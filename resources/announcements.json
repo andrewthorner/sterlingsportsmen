@@ -1,0 +1,29 @@
+[
+  {
+    "id": "meeting-recurring",
+    "title": "✅ MEMBER MONTHLY MEETING EVERY 1ST TUESDAY",
+    "date": "Recurring Monthly",
+    "summary": "All members are encouraged to attend. Meetings begin at 7:00 PM at the clubhouse.",
+    "fullContent": "Monthly membership meetings occur on the first Tuesday of every month at 7:00 PM at the main clubhouse.<br><br>Agenda topics include facility upgrades, upcoming event planning, financial reports, and new member introductions. All active members are encouraged to participate and contribute to ongoing club initiatives.",
+    "pinned": true,
+    "hasPopup": true
+  },
+  {
+    "id": "hunter-safety-aug2026",
+    "title": "⚠️ UPCOMING HUNTER SAFETY CLASS: AUG 22–23",
+    "date": "August 22–23, 2026",
+    "summary": "DNR-certified Hunter Safety Course held at the clubhouse. Pre-registration is required. Click for details!",
+    "fullContent": "<strong>Sterling Sportsmen Association Hunter Safety Certification Course</strong><br><br><strong>Dates:</strong> Saturday, August 22 & Sunday, August 23, 2026<br><strong>Location:</strong> Main Clubhouse & Outdoor Range<br><br>This state-certified course is mandatory for first-time hunters born after January 1, 1960. Certified DNR instructors will cover essential topics including:<br>• Safe firearm handling and field safety<br>• Wildlife conservation & hunter ethics<br>• Bowhunting fundamentals and tree-stand safety<br>• First aid and outdoor survival skills<br><br><strong>Requirements:</strong> Students must attend both days and pass the written exam and live field walkthrough to receive their certification card. Lunch will be provided on Saturday.",
+    "pinned": false,
+    "hasPopup": true
+  },
+  {
+    "id": "range-maintenance",
+    "title": "🔧 RIFLE RIVER SITE MAINTENANCE COMPLETED",
+    "date": "August 10, 2026",
+    "summary": "The site has been mowed and a porta-john placed",
+    "fullContent": "Thanks to Ben McBride for mowing the site. A Daniels Septic Porta-John has been placed on the site. Please remember to clean up after yourselves to keep the site nice.",
+    "pinned": false,
+    "hasPopup": true
+  }
+]
