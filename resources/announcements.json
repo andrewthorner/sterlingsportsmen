@@ -9,6 +9,15 @@
     "hasPopup": true
   },
   {
+    "id": "door-locks",
+    "title": "⚠️ NEW DOOR LOCKS INSTALLED",
+    "date": "JUNE 1, 2026",
+    "summary": "In June, new door locks with keycards have been installed. Keycards are now required for access",
+    "fullContent": "In June, the clubhouse has activated the new keycard locks to gain access. The old keypad codes are no longer active. Members who wish to use the Archery range and access the clubhouse will need a keycard.  Members can obtain one from contacting Chris Gwisdala. These keycards are meant to be used by the member only it was issued to and are tied to the name of the member. Keycard privledges can be revoked if the member is found to be either sharing his card with non-members or is breaking clubhouse rules.",
+    "pinned": false,
+    "hasPopup": true
+  },
+  {
     "id": "hunter-safety-aug2026",
     "title": "⚠️ UPCOMING HUNTER SAFETY CLASS: AUG 22–23",
     "date": "August 22–23, 2026",
