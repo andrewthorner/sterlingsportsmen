@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # Change to 'master' if your main GitHub branch is named master
+  branch: main # Change to 'master' if your default branch name is master
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -14,15 +14,21 @@ collections:
       - name: "announcements_file"
         label: "Announcements List"
         file: "resources/announcements.json"
+        format: "json"
         fields:
-          - label: "Announcements"
+          - label: "Announcements List"
             name: "announcements"
             widget: "list"
+            root: true
+            summary: "{{fields.title}}"
             fields:
+              - { label: "ID / Slug", name: "id", widget: "string", required: false }
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Publish Date", name: "date", widget: "string" }
+              - { label: "Date / Frequency", name: "date", widget: "string" }
+              - { label: "Short Summary (Scrollbox)", name: "summary", widget: "string" }
+              - { label: "Full Content (Modal Popup)", name: "fullContent", widget: "text" }
               - { label: "Pinned Story?", name: "pinned", widget: "boolean", default: false }
-              - { label: "Full Announcement Body", name: "body", widget: "text" }
+              - { label: "Opens Modal Popup?", name: "hasPopup", widget: "boolean", default: true }
 
   # 2. CALENDAR EVENTS COLLECTION
   - name: "calendar_collection"
@@ -30,16 +36,24 @@ collections:
     description: "Manage highlighted days on the monthly homepage calendar"
     files:
       - name: "calendar_file"
-        label: "Calendar Event List"
+        label: "Monthly Calendar Data"
         file: "resources/calendar-data.json"
+        format: "json"
         fields:
-          - label: "Calendar Events"
-            name: "events"
-            widget: "list"
+          - label: "August 2026"
+            name: "August 2026"
+            widget: "object"
             fields:
-              - { label: "Event Name", name: "title", widget: "string" }
-              - { label: "Date (YYYY-MM-DD)", name: "date", widget: "string" }
-              - { label: "Details", name: "description", widget: "text" }
+              - { label: "Year", name: "year", widget: "number", value_type: "int", default: 2026 }
+              - { label: "Month Index (0=Jan, 7=Aug)", name: "monthIndex", widget: "number", value_type: "int", default: 7 }
+              - label: "Events (Day Number : Event Name)"
+                name: "events"
+                widget: "object"
+                fields:
+                  - { label: "Day 4", name: "4", widget: "string", required: false }
+                  - { label: "Day 18", name: "18", widget: "string", required: false }
+                  - { label: "Day 22", name: "22", widget: "string", required: false }
+                  - { label: "Day 23", name: "23", widget: "string", required: false }
 
   # 3. UPCOMING CLUB EVENTS COLLECTION
   - name: "events_collection"
@@ -49,6 +63,7 @@ collections:
       - name: "events_file"
         label: "Events Page Data"
         file: "resources/events-data.json"
+        format: "json"
         fields:
           - label: "Upcoming Events"
             name: "upcoming_events"
@@ -59,4 +74,4 @@ collections:
               - { label: "Location", name: "location", widget: "string" }
               - { label: "Featured Event?", name: "featured", widget: "boolean", default: false }
               - { label: "Event Photo", name: "image", widget: "image", required: false }
-              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Description", name: "text" }
