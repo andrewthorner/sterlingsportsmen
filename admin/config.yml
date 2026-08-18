@@ -1,0 +1,25 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "announcements"
+    label: "Announcements"
+    folder: "content/announcements"
+    create: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Details", name: "body", widget: "markdown"}
+
+  - name: "raffles"
+    label: "Raffles"
+    folder: "content/raffles"
+    create: true
+    fields:
+      - {label: "Raffle Name", name: "title", widget: "string"}
+      - {label: "Drawing Date", name: "date", widget: "string"}
+      - {label: "Ticket Price / Info", name: "status", widget: "string"}
+      - {label: "Prize Description", name: "description", widget: "markdown"}
