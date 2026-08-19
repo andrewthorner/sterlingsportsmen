@@ -225,9 +225,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (pinnedContainer && newsScrollbox) {
     fetch("resources/announcements.json")
       .then(res => res.json())
-      .then(newsData => {
+      .then(data => {
         pinnedContainer.innerHTML = "";
         newsScrollbox.innerHTML = "";
+
+        // Fallback: Handles both raw arrays and nested object lists cleanly!
+        const newsData = Array.isArray(data) ? data : (data.announcements || []);
 
         newsData.forEach(item => {
           const itemDiv = document.createElement("div");
