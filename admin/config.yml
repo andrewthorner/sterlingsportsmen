@@ -1,33 +1,34 @@
 backend:
   name: git-gateway
-  branch: main # Change to 'master' if your default branch name is master
+  branch: main # Change to 'master' if your default branch name on GitHub is master
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   # 1. NEWS & ANNOUNCEMENTS COLLECTION
-- name: "announcements_collection"
+  - name: "announcements_collection"
     label: "News & Announcements"
+    description: "Manage news posts on the homepage scrollbox and modal popup"
     files:
       - name: "announcements_file"
         label: "Announcements List"
         file: "resources/announcements.json"
         format: "json"
-        structure: "single_file"
         fields:
           - label: "Announcements"
             name: "announcements"
             widget: "list"
             root: true
+            summary: "{{fields.title}}"
             fields:
               - { label: "ID / Slug", name: "id", widget: "string", required: false }
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Date", name: "date", widget: "string" }
-              - { label: "Summary", name: "summary", widget: "string" }
-              - { label: "Full Content", name: "fullContent", widget: "text" }
-              - { label: "Pinned?", name: "pinned", widget: "boolean", default: false }
-              - { label: "Popup?", name: "hasPopup", widget: "boolean", default: true }
+              - { label: "Date / Frequency", name: "date", widget: "string" }
+              - { label: "Short Summary (Scrollbox)", name: "summary", widget: "string" }
+              - { label: "Full Content (Modal Popup)", name: "fullContent", widget: "text" }
+              - { label: "Pinned Story?", name: "pinned", widget: "boolean", default: false }
+              - { label: "Opens Modal Popup?", name: "hasPopup", widget: "boolean", default: true }
 
   # 2. CALENDAR EVENTS COLLECTION
   - name: "calendar_collection"
@@ -73,4 +74,4 @@ collections:
               - { label: "Location", name: "location", widget: "string" }
               - { label: "Featured Event?", name: "featured", widget: "boolean", default: false }
               - { label: "Event Photo", name: "image", widget: "image", required: false }
-              - { label: "Description", name: "text" }
+              - { label: "Description", name: "description", widget: "text" }
