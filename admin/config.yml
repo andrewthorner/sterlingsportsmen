@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # Change to 'master' if your default branch name on GitHub is master
+  branch: main # Change to 'master' if your default branch on GitHub is master
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -15,6 +15,7 @@ collections:
         label: "Announcements List"
         file: "resources/announcements.json"
         format: "json"
+        structure: "single_file"
         fields:
           - label: "Announcements"
             name: "announcements"
@@ -40,20 +41,22 @@ collections:
         file: "resources/calendar-data.json"
         format: "json"
         fields:
-          - label: "August 2026"
-            name: "August 2026"
-            widget: "object"
+          - label: "Months"
+            name: "months"
+            widget: "list"
+            root: true
+            summary: "{{fields.label}}"
             fields:
-              - { label: "Year", name: "year", widget: "number", value_type: "int", default: 2026 }
-              - { label: "Month Index (0=Jan, 7=Aug)", name: "monthIndex", widget: "number", value_type: "int", default: 7 }
-              - label: "Events (Day Number : Event Name)"
+              - { label: "Month Label (e.g. August 2026)", name: "label", widget: "string" }
+              - { label: "Year", name: "year", widget: "number", value_type: "int" }
+              - { label: "Month Index (0=Jan, 1=Feb, ... 7=Aug)", name: "monthIndex", widget: "number", value_type: "int" }
+              - label: "Events List"
                 name: "events"
-                widget: "object"
+                widget: "list"
+                summary: "Day {{fields.day}}: {{fields.title}}"
                 fields:
-                  - { label: "Day 4", name: "4", widget: "string", required: false }
-                  - { label: "Day 18", name: "18", widget: "string", required: false }
-                  - { label: "Day 22", name: "22", widget: "string", required: false }
-                  - { label: "Day 23", name: "23", widget: "string", required: false }
+                  - { label: "Day of Month (1-31)", name: "day", widget: "string" }
+                  - { label: "Event Name / Description", name: "title", widget: "string" }
 
   # 3. UPCOMING CLUB EVENTS COLLECTION
   - name: "events_collection"
