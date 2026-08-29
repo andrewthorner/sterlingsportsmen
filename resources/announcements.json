@@ -1,14 +1,5 @@
 [
   {
-    "id": "announcement-1788018616399",
-    "title": "This is a test ",
-    "date": "September 1, 2026",
-    "summary": "Testing this feature ",
-    "fullContent": "featured is tested",
-    "pinned": false,
-    "hasPopup": true
-  },
-  {
     "id": "meeting-recurring",
     "title": "✅ MEMBER MONTHLY MEETING EVERY 1ST TUESDAY",
     "date": "Recurring Monthly",
