@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sterling Sportsmen - Admin Dashboard</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f4f4; }
-    .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; background: #f4f4f4; color: #333; }
+    h1 { text-align: center; color: #2c5e3b; margin-bottom: 30px; }
+    .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    h2 { border-bottom: 2px solid #2c5e3b; padding-bottom: 8px; margin-top: 0; color: #2c5e3b; }
     label { font-weight: bold; display: block; margin-top: 15px; }
-    input, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    button { background: #2c5e3b; color: white; padding: 10px 16px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+    button { background: #2c5e3b; color: white; padding: 10px 18px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
     button:hover { background: #1e4028; }
     .btn-delete { background: #c0392b; margin-left: 5px; }
     .btn-delete:hover { background: #962d22; }
@@ -18,7 +20,7 @@
     .status { margin-top: 15px; font-weight: bold; }
     .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
     .item-row:last-child { border-bottom: none; }
-    .pinned-tag { background: #f39c12; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+    .pinned-tag { background: #f39c12; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; font-weight: bold; margin-left: 5px; }
   </style>
 </head>
 <body>
@@ -35,13 +37,13 @@
       <input type="text" id="date" placeholder="e.g. September 15, 2026" required>
 
       <label>Short Summary (Displays in homepage scrollbox)</label>
-      <textarea id="summary" rows="2" required></textarea>
+      <textarea id="summary" rows="2" placeholder="Brief summary of the announcement..." required></textarea>
 
       <label>Full Content (Displays in popup modal)</label>
-      <textarea id="fullContent" rows="4" required></textarea>
+      <textarea id="fullContent" rows="4" placeholder="Full details for the popup modal..." required></textarea>
 
-      <label style="margin-top:15px; font-weight:normal;">
-        <input type="checkbox" id="pinned"> Pin to top of homepage?
+      <label style="margin-top:15px; font-weight:normal; cursor:pointer;">
+        <input type="checkbox" id="pinned" style="width:auto;"> Pin to top of homepage?
       </label>
 
       <button type="submit" style="margin-top:20px;">Publish Announcement</button>
@@ -54,16 +56,48 @@
     <div id="announcements-list">Loading live announcements...</div>
   </div>
 
-  <script>
-    // UPDATE THIS URL TO YOUR WORKER URL
-    const WORKER_URL = "https://sterling-admin-api.andrew-thorner.workers.dev";
-    const RAW_JSON_URL = "../resources/announcements.json";
+  <div class="card">
+    <h2>Manage Calendar Events</h2>
+    <form id="calendar-form">
+      <label>Select Month</label>
+      <select id="cal-month" required>
+        <option value="August 2026">August 2026</option>
+        <option value="September 2026">September 2026</option>
+        <option value="October 2026">October 2026</option>
+        <option value="November 2026">November 2026</option>
+        <option value="December 2026">December 2026</option>
+      </select>
 
-    // 1. Fetch and Display Active Announcements
+      <label>Day of Month (1–31)</label>
+      <input type="number" id="cal-day" min="1" max="31" placeholder="e.g. 15" required>
+
+      <label>Event Name & Details</label>
+      <input type="text" id="cal-title" placeholder="e.g. Member Monthly Meeting @ 7pm" required>
+
+      <button type="submit" style="margin-top:20px;">Add / Update Calendar Day</button>
+      <div id="cal-status" class="status"></div>
+    </form>
+
+    <h3 style="margin-top:30px; color:#2c5e3b;">Events for Selected Month</h3>
+    <div id="calendar-events-list">Select a month to view events.</div>
+  </div>
+
+  <script>
+    // Replace with your active Cloudflare Worker Endpoint URL
+    const WORKER_URL = "https://sterling-admin-api.andrew-thorner.workers.dev";
+    
+    // Relative paths to target JSON data files
+    const ANNOUNCEMENTS_JSON_URL = "../resources/announcements.json";
+    const CALENDAR_JSON_URL = "../resources/calendar-data.json";
+
+    // ==========================================
+    // ANNOUNCEMENTS LOGIC
+    // ==========================================
+
     async function loadAnnouncements() {
       const listContainer = document.getElementById("announcements-list");
       try {
-        const res = await fetch(RAW_JSON_URL + "?cache=" + Date.now());
+        const res = await fetch(ANNOUNCEMENTS_JSON_URL + "?cache=" + Date.now());
         const data = await res.json();
         
         listContainer.innerHTML = "";
@@ -83,14 +117,14 @@
           listContainer.appendChild(row);
         });
       } catch (err) {
-        listContainer.innerText = "Error loading list.";
+        listContainer.innerText = "Error loading announcements list.";
       }
     }
 
-    // 2. Add New Announcement
     document.getElementById("announcement-form").addEventListener("submit", async function(e) {
       e.preventDefault();
       const statusDiv = document.getElementById("status");
+      statusDiv.style.color = "#333";
       statusDiv.innerText = "Publishing to site...";
 
       const newEntry = {
@@ -107,7 +141,7 @@
         const res = await fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "add", newEntry })
+          body: JSON.stringify({ target: "announcements", action: "add", newEntry })
         });
 
         if (res.ok) {
@@ -115,6 +149,8 @@
           statusDiv.innerText = "✅ Published successfully!";
           document.getElementById("announcement-form").reset();
           setTimeout(loadAnnouncements, 2000);
+        } else {
+          throw new Error("Failed to save post");
         }
       } catch (err) {
         statusDiv.style.color = "red";
@@ -122,30 +158,124 @@
       }
     });
 
-    // 3. Toggle Pin Status
     async function togglePin(id) {
       if (!confirm("Toggle pin status for this announcement?")) return;
       await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "togglePin", id })
+        body: JSON.stringify({ target: "announcements", action: "togglePin", id })
       });
       setTimeout(loadAnnouncements, 2000);
     }
 
-    // 4. Delete Announcement
     async function deleteItem(id) {
       if (!confirm("Are you sure you want to delete this announcement permanently?")) return;
       await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", id })
+        body: JSON.stringify({ target: "announcements", action: "delete", id })
       });
       setTimeout(loadAnnouncements, 2000);
     }
 
-    // Initial load
+    // ==========================================
+    // CALENDAR LOGIC
+    // ==========================================
+
+    async function loadCalendarEvents() {
+      const monthKey = document.getElementById("cal-month").value;
+      const listContainer = document.getElementById("calendar-events-list");
+      
+      try {
+        const res = await fetch(CALENDAR_JSON_URL + "?cache=" + Date.now());
+        const data = await res.json();
+        const monthData = data[monthKey];
+
+        listContainer.innerHTML = "";
+
+        if (!monthData || !monthData.events || Object.keys(monthData.events).length === 0) {
+          listContainer.innerText = "No events listed for this month.";
+          return;
+        }
+
+        Object.keys(monthData.events).sort((a,b) => Number(a) - Number(b)).forEach(day => {
+          const row = document.createElement("div");
+          row.className = "item-row";
+          row.innerHTML = `
+            <div>
+              <strong>Day ${day}:</strong> ${monthData.events[day]}
+            </div>
+            <div>
+              <button class="btn-delete" onclick="deleteCalendarDay('${monthKey}', '${day}')">Remove</button>
+            </div>
+          `;
+          listContainer.appendChild(row);
+        });
+      } catch (err) {
+        listContainer.innerText = "Error loading calendar events.";
+      }
+    }
+
+    document.getElementById("calendar-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById("cal-status");
+      statusDiv.style.color = "#333";
+      statusDiv.innerText = "Updating calendar...";
+
+      const monthKey = document.getElementById("cal-month").value;
+      const day = document.getElementById("cal-day").value;
+      const eventTitle = document.getElementById("cal-title").value;
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            target: "calendar",
+            action: "addOrUpdate",
+            monthKey,
+            day,
+            eventTitle
+          })
+        });
+
+        if (res.ok) {
+          statusDiv.style.color = "green";
+          statusDiv.innerText = "✅ Calendar updated successfully!";
+          document.getElementById("cal-day").value = "";
+          document.getElementById("cal-title").value = "";
+          setTimeout(loadCalendarEvents, 2000);
+        } else {
+          throw new Error("Failed to update calendar");
+        }
+      } catch (err) {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "❌ Error: " + err.message;
+      }
+    });
+
+    async function deleteCalendarDay(monthKey, day) {
+      if (!confirm(`Remove event on Day ${day} for ${monthKey}?`)) return;
+
+      await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          target: "calendar",
+          action: "deleteDay",
+          monthKey,
+          day
+        })
+      });
+      setTimeout(loadCalendarEvents, 2000);
+    }
+
+    // Attach Month Selection Listener
+    document.getElementById("cal-month").addEventListener("change", loadCalendarEvents);
+
+    // Initial Load on Page Visit
     loadAnnouncements();
+    loadCalendarEvents();
   </script>
 </body>
 </html>
