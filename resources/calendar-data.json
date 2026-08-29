@@ -1,5 +1,5 @@
 {
-    "August 2026": {
+  "August 2026": {
     "year": 2026,
     "monthIndex": 7,
     "events": {
@@ -9,13 +9,12 @@
       "23": "Hunter's Safety Class"
     }
   },
-    "September 2026": {
+  "September 2026": {
     "year": 2026,
     "monthIndex": 8,
     "events": {
       "1": "Members Meeting @ 7pm",
       "12": "Youth Deer Hunt Weekend",
-      "13": "Youth Deer Hunt Weekend",
       "15": "Board Members Meeting @ 7pm"
     }
   },
