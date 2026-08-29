@@ -1,12 +1,102 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sterling Sportsmen - Admin Dashboard</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sterling Sportsmen - Admin Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 20px; background: #f4f4f4; }
+    .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    button { background: #2c5e3b; color: white; padding: 12px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+    button:hover { background: #1e4028; }
+    .status { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h1>Club Admin Panel</h1>
+
+  <div class="card">
+    <h2>Post New Announcement</h2>
+    <form id="announcement-form">
+      <label>Title</label>
+      <input type="text" id="title" placeholder="e.g. ⚠️ UPCOMING WORK DAY" required>
+
+      <label>Date / Frequency</label>
+      <input type="text" id="date" placeholder="e.g. September 15, 2026" required>
+
+      <label>Short Summary (Displays in homepage scrollbox)</label>
+      <textarea id="summary" rows="2" required></textarea>
+
+      <label>Full Content (Displays in popup modal)</label>
+      <textarea id="fullContent" rows="4" required></textarea>
+
+      <label>
+        <input type="checkbox" id="pinned"> Pin to top of homepage?
+      </label>
+
+      <button type="submit">Publish Announcement</button>
+      <div id="status" class="status"></div>
+    </form>
+  </div>
+
+  <script>
+    // GitHub API Config (Will use a fine-grained GitHub Personal Access Token or Worker API)
+    const GITHUB_REPO = "YOUR-USERNAME/YOUR-REPO-NAME"; 
+    const FILE_PATH = "resources/announcements.json";
+
+    document.getElementById("announcement-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById("status");
+      statusDiv.innerText = "Publishing to site...";
+
+      const newEntry = {
+        id: "announcement-" + Date.now(),
+        title: document.getElementById("title").value,
+        date: document.getElementById("date").value,
+        summary: document.getElementById("summary").value,
+        fullContent: document.getElementById("fullContent").value,
+        pinned: document.getElementById("pinned").checked,
+        hasPopup: true
+      };
+
+      try {
+        // 1. Get current announcements.json from GitHub
+        const getRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}`);
+        const fileData = await getRes.json();
+        const currentContent = JSON.parse(atob(fileData.content));
+
+        // 2. Unshift (add to top) new entry into exact current array structure
+        currentContent.unshift(newEntry);
+
+        // 3. Save updated array back to GitHub
+        const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}`, {
+          method: "PUT",
+          headers: {
+            "Authorization": "Bearer YOUR_GITHUB_TOKEN", // Handled securely via Worker or Secret
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: "Add new announcement via Admin Dashboard",
+            content: btoa(JSON.stringify(currentContent, null, 2)),
+            sha: fileData.sha
+          })
+        });
+
+        if (updateRes.ok) {
+          statusDiv.style.color = "green";
+          statusDiv.innerText = "✅ Published successfully! Site rebuilding...";
+          document.getElementById("announcement-form").reset();
+        } else {
+          throw new Error("Failed to update GitHub");
+        }
+      } catch (err) {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "❌ Error: " + err.message;
+      }
+    });
+  </script>
+</body>
 </html>
