@@ -24,7 +24,7 @@
       
       <article class="event-card featured-event">
         <div class="event-img-container">
-          <img src="images/Webp/Banquet1.webp" alt="Annual Sportsmen Banquet" class="event-img">
+          <img src="images/gallery/banquet-2026/4.webp" alt="Annual Sportsmen Banquet" class="event-img">
           <span class="featured-badge">⭐ FEATURED EVENT</span>
         </div>
         <div class="event-details">
@@ -83,14 +83,15 @@
             Take a look back at highlights, photos, and recaps from our previous club outings and community events:
           </p>
 
-          <div class="past-event-item">
-            <img src="images/past-banquet-2025.jpg" alt="2025 Sportsmen Banquet Photos" class="past-event-thumb">
+          <div class="past-event-item clickable" 
+              data-gallery-title="2026 Sportsmen Banquet Highlights" 
+              data-gallery-folder="images/gallery/banquet-2026" 
+              data-photo-count="27">
+            <img src="images/gallery/banquet-2026/10.webp" alt="2026 Banquet" class="past-event-thumb">
             <div class="past-event-info">
-              <h3>2025 Sportsmen Banquet Highlights</h3>
-              <p class="past-event-date">March 2025</p>
-              <p>
-                A fantastic turnout with over 200 members and guests! Congratulations to all of our 30-gun raffle winners and thank you to local sponsors for supporting local wildlife programs.
-              </p>
+              <h3>2026 Sportsmen Banquet Highlights</h3>
+              <p class="past-event-date">March 2026</p>
+              <p>A fantastic turnout! Click to view gallery →</p>
             </div>
           </div>
 
@@ -108,6 +109,25 @@
         </div>
       </details>
     </section>
+
+<!-- GALLERY LIGHTBOX MODAL -->
+  <div id="gallery-modal" class="modal-overlay">
+    <div class="gallery-modal-content">
+      <button id="gallery-modal-close" class="modal-close-btn">&times;</button>
+      <h3 id="gallery-modal-title">Event Gallery</h3>
+      
+      <!-- Main Large Photo View -->
+      <div id="main-photo-container" class="main-photo-container">
+        <button id="gallery-fullscreen-btn" class="fullscreen-btn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">&#10064;</button>
+        <button id="gallery-prev-btn" class="nav-arrow prev-arrow" aria-label="Previous Photo">&#10094;</button>
+        <img id="gallery-main-img" src="" alt="Event Photo Large View">
+        <button id="gallery-next-btn" class="nav-arrow next-arrow" aria-label="Next Photo">&#10095;</button>
+      </div>
+
+      <!-- Horizontal Scrollable Thumbnail Bar -->
+      <div id="gallery-thumbs-scroll" class="thumbs-scroll-row"></div>
+    </div>
+  </div>
 
   </main>
 
