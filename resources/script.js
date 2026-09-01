@@ -278,4 +278,133 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+// GALLERY MODAL LIGHTBOX WITH ARROWS & ADVANCE-ON-CLICK
+const galleryModal = document.getElementById("gallery-modal");
+const galleryTitle = document.getElementById("gallery-modal-title");
+const mainImg = document.getElementById("gallery-main-img");
+const thumbsContainer = document.getElementById("gallery-thumbs-scroll");
+const galleryClose = document.getElementById("gallery-modal-close");
+const prevBtn = document.getElementById("gallery-prev-btn");
+const nextBtn = document.getElementById("gallery-next-btn");
+
+if (galleryModal) {
+  let currentPhotos = [];
+  let currentIndex = 0;
+
+  // Helper function to show a specific image index
+  function showPhoto(index) {
+    if (currentPhotos.length === 0) return;
+    
+    // Wrap around index boundaries
+    if (index < 0) index = currentPhotos.length - 1;
+    if (index >= currentPhotos.length) index = 0;
+
+    currentIndex = index;
+    mainImg.src = currentPhotos[currentIndex];
+
+    // Highlight corresponding thumbnail and scroll into view
+    const thumbs = thumbsContainer.querySelectorAll(".gallery-thumb");
+    thumbs.forEach((t, i) => {
+      if (i === currentIndex) {
+        t.classList.add("active");
+        t.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      } else {
+        t.classList.remove("active");
+      }
+    });
+  }
+
+  // Open Modal Listener
+  document.querySelectorAll(".past-event-item[data-gallery-folder]").forEach(item => {
+    item.addEventListener("click", function () {
+      const title = this.getAttribute("data-gallery-title");
+      const folderPath = this.getAttribute("data-gallery-folder");
+      const photoCount = parseInt(this.getAttribute("data-photo-count")) || 0;
+
+      if (photoCount === 0) return;
+
+      // Construct photo paths array
+      currentPhotos = [];
+      for (let i = 1; i <= photoCount; i++) {
+        currentPhotos.push(`${folderPath}/${i}.webp`);
+      }
+
+      galleryTitle.innerText = title;
+      thumbsContainer.innerHTML = "";
+
+      // Build thumbnail bar
+      currentPhotos.forEach((photoUrl, index) => {
+        const thumb = document.createElement("img");
+        thumb.src = photoUrl;
+        thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
+
+        thumb.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevent trigger parent click
+          showPhoto(index);
+        });
+
+        thumbsContainer.appendChild(thumb);
+      });
+
+      showPhoto(0);
+      galleryModal.classList.add("open");
+    });
+  });
+
+  // Navigation Event Listeners
+  if (prevBtn) prevBtn.addEventListener("click", (e) => { e.stopPropagation(); showPhoto(currentIndex - 1); });
+  if (nextBtn) nextBtn.addEventListener("click", (e) => { e.stopPropagation(); showPhoto(currentIndex + 1); });
+  
+  // Advance to next photo on main image click
+  if (mainImg) mainImg.addEventListener("click", () => showPhoto(currentIndex + 1));
+
+  // Keyboard navigation (Left / Right Arrow Keys)
+  document.addEventListener("keydown", function (e) {
+    if (!galleryModal.classList.contains("open")) return;
+    if (e.key === "ArrowLeft") showPhoto(currentIndex - 1);
+    if (e.key === "ArrowRight") showPhoto(currentIndex + 1);
+    if (e.key === "Escape") galleryModal.classList.remove("open");
+  });
+
+  // Close handlers
+  if (galleryClose) galleryClose.addEventListener("click", () => galleryModal.classList.remove("open"));
+
+  galleryModal.addEventListener("click", function (e) {
+    if (e.target === galleryModal) {
+      galleryModal.classList.remove("open");
+    }
+  });
+  // FULLSCREEN TOGGLE LOGIC
+// FULLSCREEN TOGGLE LOGIC
+const photoContainer = document.getElementById("main-photo-container");
+const fullscreenBtn = document.getElementById("gallery-fullscreen-btn");
+
+if (fullscreenBtn && photoContainer) {
+  fullscreenBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+
+    if (!document.fullscreenElement) {
+      if (photoContainer.requestFullscreen) {
+        photoContainer.requestFullscreen();
+      } else if (photoContainer.webkitRequestFullscreen) {
+        photoContainer.webkitRequestFullscreen();
+      }
+      fullscreenBtn.innerHTML = "&times;"; // Changes icon to 'X' when inside full-screen
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      fullscreenBtn.innerHTML = "&#10064;"; // Reverts back to expand icon
+    }
+  });
+
+  document.addEventListener("fullscreenchange", function () {
+    if (!document.fullscreenElement) {
+      fullscreenBtn.innerHTML = "&#10064;";
+    }
+  });
+}
+}
 });
