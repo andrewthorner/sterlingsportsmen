@@ -407,4 +407,54 @@ if (fullscreenBtn && photoContainer) {
   });
 }
 }
+// CONTACT FORM WORKER SUBMISSION
+const contactForm = document.getElementById("contact-form");
+const formStatus = document.getElementById("form-status");
+const submitBtn = document.getElementById("submit-btn");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Sending...";
+    formStatus.innerText = "";
+    formStatus.style.color = "#333";
+
+    const formData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value,
+    };
+
+    try {
+      // Replace with your Cloudflare Worker URL or relative path if routed on same domain
+      const response = await fetch("https://YOUR-WORKER-SUBDOMAIN.workers.dev/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        formStatus.style.color = "#2c5e3b";
+        formStatus.innerText = "✓ Thank you! Your message has been sent successfully.";
+        contactForm.reset();
+      } else {
+        throw new Error(result.error || "Failed to send message.");
+      }
+    } catch (err) {
+      formStatus.style.color = "#a00000";
+      formStatus.innerText = "✕ Error: " + err.message;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Send Message";
+    }
+  });
+}
 });
