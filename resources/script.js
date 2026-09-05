@@ -431,7 +431,7 @@ if (contactForm) {
 
     try {
       // Replace with your Cloudflare Worker URL or relative path if routed on same domain
-      const response = await fetch("https://YOUR-WORKER-SUBDOMAIN.workers.dev/api/contact", {
+      const response = await fetch("https://ssa-api.andrew-thorner.workers.dev/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
