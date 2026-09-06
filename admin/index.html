@@ -21,12 +21,14 @@
     .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
     .item-row:last-child { border-bottom: none; }
     .pinned-tag { background: #f39c12; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; font-weight: bold; margin-left: 5px; }
+    .category-badge { background: #2c5e3b; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; margin-right: 6px; font-weight: bold; }
   </style>
 </head>
 <body>
 
   <h1>Club Admin Panel</h1>
 
+  <!-- ANNOUNCEMENTS CARD -->
   <div class="card">
     <h2>Post New Announcement</h2>
     <form id="announcement-form">
@@ -57,104 +59,105 @@
   </div>
 
   <!-- ADD NEW MONTHS & RECURRING EVENTS CARD -->
-<div class="card">
-  <h2>Add New Months & Recurring Events</h2>
-  
-  <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-    <button type="button" id="mode-single-btn" onclick="toggleMonthMode('single')" style="flex:1;">Single Month</button>
-    <button type="button" id="mode-bulk-btn" onclick="toggleMonthMode('bulk')" style="flex:1; background:#666;">Bulk Month Range</button>
+  <div class="card">
+    <h2>Add New Months & Recurring Events</h2>
+    
+    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+      <button type="button" id="mode-single-btn" onclick="toggleMonthMode('single')" style="flex:1;">Single Month</button>
+      <button type="button" id="mode-bulk-btn" onclick="toggleMonthMode('bulk')" style="flex:1; background:#666;">Bulk Month Range</button>
+    </div>
+
+    <form id="add-month-form">
+      <!-- SINGLE MONTH MODE -->
+      <div id="single-month-fields">
+        <div style="display: flex; gap: 10px;">
+          <div style="flex: 2;">
+            <label>Month</label>
+            <select id="new-month-name">
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label>Year</label>
+            <input type="number" id="new-month-year" value="2027" min="2026" max="2035">
+          </div>
+        </div>
+      </div>
+
+      <!-- BULK RANGE MODE -->
+      <div id="bulk-month-fields" style="display: none;">
+        <div style="display: flex; gap: 10px;">
+          <div style="flex: 1;">
+            <label>Start Month</label>
+            <select id="bulk-start-month">
+              <option value="8">September</option>
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label>End Month</label>
+            <select id="bulk-end-month">
+              <option value="11">December</option>
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label>Year</label>
+            <input type="number" id="bulk-year" value="2027" min="2026" max="2035">
+          </div>
+        </div>
+      </div>
+
+      <!-- RECURRING EVENTS OPTIONS -->
+      <div style="background: #eef5f0; padding: 15px; border-radius: 6px; margin-top: 20px; border: 1px solid #c2dec9;">
+        <label style="margin-top: 0; color: #2c5e3b;">🔄 Auto-Inject Recurring Monthly Meetings</label>
+        <label style="font-weight: normal; margin-top: 8px; cursor: pointer;">
+          <input type="checkbox" id="add-members-meeting" checked style="width: auto;"> 
+          <strong>1st Tuesday:</strong> Members Meeting @ 7pm
+        </label>
+        <label style="font-weight: normal; margin-top: 5px; cursor: pointer;">
+          <input type="checkbox" id="add-board-meeting" checked style="width: auto;"> 
+          <strong>3rd Tuesday:</strong> Board Members Meeting @ 7pm
+        </label>
+      </div>
+
+      <button type="submit" id="add-month-submit" style="margin-top: 20px;">Generate & Save Month(s)</button>
+      <div id="add-month-status" class="status"></div>
+    </form>
   </div>
 
-  <form id="add-month-form">
-    <!-- SINGLE MONTH MODE -->
-    <div id="single-month-fields">
-      <div style="display: flex; gap: 10px;">
-        <div style="flex: 2;">
-          <label>Month</label>
-          <select id="new-month-name">
-            <option value="0">January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">June</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-            <option value="11">December</option>
-          </select>
-        </div>
-        <div style="flex: 1;">
-          <label>Year</label>
-          <input type="number" id="new-month-year" value="2027" min="2026" max="2035">
-        </div>
-      </div>
-    </div>
-
-    <!-- BULK RANGE MODE (Hidden by default) -->
-    <div id="bulk-month-fields" style="display: none;">
-      <div style="display: flex; gap: 10px;">
-        <div style="flex: 1;">
-          <label>Start Month</label>
-          <select id="bulk-start-month">
-            <option value="8">September</option>
-            <option value="0">January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">June</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-            <option value="11">December</option>
-          </select>
-        </div>
-        <div style="flex: 1;">
-          <label>End Month</label>
-          <select id="bulk-end-month">
-            <option value="11">December</option>
-            <option value="0">January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">June</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-          </select>
-        </div>
-        <div style="flex: 1;">
-          <label>Year</label>
-          <input type="number" id="bulk-year" value="2027" min="2026" max="2035">
-        </div>
-      </div>
-    </div>
-
-    <!-- RECURRING EVENTS OPTIONS -->
-    <div style="background: #eef5f0; padding: 15px; border-radius: 6px; margin-top: 20px; border: 1px solid #c2dec9;">
-      <label style="margin-top: 0; color: #2c5e3b;">🔄 Auto-Inject Recurring Monthly Meetings</label>
-      <label style="font-weight: normal; margin-top: 8px; cursor: pointer;">
-        <input type="checkbox" id="add-members-meeting" checked style="width: auto;"> 
-        <strong>1st Tuesday:</strong> Members Meeting @ 7pm
-      </label>
-      <label style="font-weight: normal; margin-top: 5px; cursor: pointer;">
-        <input type="checkbox" id="add-board-meeting" checked style="width: auto;"> 
-        <strong>3rd Tuesday:</strong> Board Members Meeting @ 7pm
-      </label>
-    </div>
-
-    <button type="submit" id="add-month-submit" style="margin-top: 20px;">Generate & Save Month(s)</button>
-    <div id="add-month-status" class="status"></div>
-  </form>
-</div>
-
+  <!-- CALENDAR EVENTS CARD -->
   <div class="card">
     <h2>Manage Calendar Events</h2>
     <form id="calendar-form">
@@ -177,18 +180,66 @@
     <div id="calendar-events-list">Select a month to view events.</div>
   </div>
 
+  <!-- CLUB EVENTS & GALLERY MANAGER CARD -->
+  <div class="card">
+    <h2>Manage Club Events & Galleries</h2>
+    
+    <form id="event-admin-form">
+      <label>Event Classification</label>
+      <select id="event-type" onchange="toggleEventFields()">
+        <option value="upcoming">Upcoming Event</option>
+        <option value="past">Past / Gallery Event</option>
+      </select>
+
+      <label>Event Folder Name (e.g., banquet-2026, youth-hunt-2026)</label>
+      <input type="text" id="event-folder" placeholder="banquet-2026" required>
+
+      <label>Event Title</label>
+      <input type="text" id="event-title" placeholder="Annual Sportsmen Banquet" required>
+
+      <label>Date Description</label>
+      <input type="text" id="event-date" placeholder="📅 SEPTEMBER 12, 2026" required>
+
+      <!-- UPCOMING FIELDS -->
+      <div id="upcoming-fields">
+        <label style="margin-top:15px; font-weight:normal; cursor:pointer;">
+          <input type="checkbox" id="event-featured" style="width:auto;"> Feature at top of page?
+        </label>
+        <label>Location (Optional)</label>
+        <input type="text" id="event-location" placeholder="📍 American Legion | Standish, MI">
+      </div>
+
+      <!-- PAST EVENT GALLERY FIELDS -->
+      <div id="past-fields" style="display:none;">
+        <p style="font-size:0.85rem; color:#666; margin-top:8px;">
+          Note: Photos uploaded will be automatically numbered (1.webp, 2.webp, etc.) and placed inside <code>images/gallery/[folder-name]/</code>.
+        </p>
+      </div>
+
+      <label>Description / Details</label>
+      <textarea id="event-description" rows="3" required></textarea>
+
+      <label>Upload Event Photos (Multiple Allowed, Auto-WebP & Max 150KB per photo)</label>
+      <input type="file" id="event-image-files" accept="image/*" multiple required>
+
+      <button type="submit" style="margin-top:20px;">Save Event & Upload Photo(s)</button>
+      <div id="event-status" class="status"></div>
+    </form>
+
+    <h3 style="margin-top:30px; color:#2c5e3b;">Existing Events</h3>
+    <div id="events-list">Loading live events...</div>
+  </div>
+
   <script>
-    // Replace with your active Cloudflare Worker Endpoint URL
     const WORKER_URL = "https://sterling-admin-api.andrew-thorner.workers.dev";
     
-    // Relative paths to target JSON data files
     const ANNOUNCEMENTS_JSON_URL = "../resources/announcements.json";
     const CALENDAR_JSON_URL = "../resources/calendar-data.json";
+    const EVENTS_JSON_URL = "../resources/events.json";
 
     // ==========================================
-    // ANNOUNCEMENTS LOGIC
+    // 1. ANNOUNCEMENTS LOGIC
     // ==========================================
-
     async function loadAnnouncements() {
       const listContainer = document.getElementById("announcements-list");
       try {
@@ -273,220 +324,453 @@
       setTimeout(loadAnnouncements, 2000);
     }
 
-   // ==========================================
-// CALENDAR LOGIC (DYNAMIC MONTH POPULATION)
-// ==========================================
+    // ==========================================
+    // 2. CALENDAR LOGIC
+    // ==========================================
+    let globalCalendarData = {};
 
-let globalCalendarData = {}; // Stores fetched calendar JSON
+    async function initAdminCalendar() {
+      const monthSelect = document.getElementById("cal-month");
+      
+      try {
+        const res = await fetch(CALENDAR_JSON_URL + "?cache=" + Date.now());
+        globalCalendarData = await res.json();
 
-async function initAdminCalendar() {
-  const monthSelect = document.getElementById("cal-month");
-  
-  try {
-    // 1. Fetch live calendar JSON
-    const res = await fetch(CALENDAR_JSON_URL + "?cache=" + Date.now());
-    globalCalendarData = await res.json();
+        monthSelect.innerHTML = "";
+        Object.keys(globalCalendarData).forEach(monthKey => {
+          const opt = document.createElement("option");
+          opt.value = monthKey;
+          opt.textContent = monthKey;
+          monthSelect.appendChild(opt);
+        });
 
-    // 2. Clear existing options and populate dynamically from JSON keys
-    monthSelect.innerHTML = "";
-    Object.keys(globalCalendarData).forEach(monthKey => {
-      const opt = document.createElement("option");
-      opt.value = monthKey;
-      opt.textContent = monthKey;
-      monthSelect.appendChild(opt);
+        const now = new Date();
+        const monthNames = [
+          "January", "February", "March", "April", "May", "June", 
+          "July", "August", "September", "October", "November", "December"
+        ];
+        const currentMonthKey = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+
+        if (globalCalendarData[currentMonthKey]) {
+          monthSelect.value = currentMonthKey;
+        } else if (Object.keys(globalCalendarData).length > 0) {
+          monthSelect.value = Object.keys(globalCalendarData)[0];
+        }
+
+        renderCalendarEventList();
+
+      } catch (err) {
+        console.error("Error initializing calendar:", err);
+        monthSelect.innerHTML = `<option value="">Error loading months</option>`;
+      }
+    }
+
+    function renderCalendarEventList() {
+      const monthKey = document.getElementById("cal-month").value;
+      const listContainer = document.getElementById("calendar-events-list");
+      const monthData = globalCalendarData[monthKey];
+
+      listContainer.innerHTML = "";
+
+      if (!monthData || !monthData.events || Object.keys(monthData.events).length === 0) {
+        listContainer.innerText = "No events listed for this month.";
+        return;
+      }
+
+      Object.keys(monthData.events)
+        .sort((a, b) => Number(a) - Number(b))
+        .forEach(day => {
+          const row = document.createElement("div");
+          row.className = "item-row";
+          row.innerHTML = `
+            <div>
+              <strong>Day ${day}:</strong> ${monthData.events[day]}
+            </div>
+            <div>
+              <button class="btn-delete" onclick="deleteCalendarDay('${monthKey}', '${day}')">Remove</button>
+            </div>
+          `;
+          listContainer.appendChild(row);
+        });
+    }
+
+    document.getElementById("cal-month").addEventListener("change", renderCalendarEventList);
+
+    document.getElementById("calendar-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById("cal-status");
+      statusDiv.style.color = "#333";
+      statusDiv.innerText = "Updating calendar...";
+
+      const monthKey = document.getElementById("cal-month").value;
+      const day = document.getElementById("cal-day").value;
+      const eventTitle = document.getElementById("cal-title").value;
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            target: "calendar",
+            action: "addOrUpdate",
+            monthKey,
+            day,
+            eventTitle
+          })
+        });
+
+        if (res.ok) {
+          statusDiv.style.color = "green";
+          statusDiv.innerText = "✅ Calendar updated successfully!";
+          document.getElementById("cal-day").value = "";
+          document.getElementById("cal-title").value = "";
+          setTimeout(initAdminCalendar, 2000);
+        } else {
+          throw new Error("Failed to update calendar");
+        }
+      } catch (err) {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "❌ Error: " + err.message;
+      }
     });
 
-    // 3. Auto-detect current month & year (e.g. "September 2026")
-    const now = new Date();
-    const monthNames = [
+    async function deleteCalendarDay(monthKey, day) {
+      if (!confirm(`Remove event on Day ${day} for ${monthKey}?`)) return;
+
+      await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          target: "calendar",
+          action: "deleteDay",
+          monthKey,
+          day
+        })
+      });
+      setTimeout(initAdminCalendar, 2000);
+    }
+
+    // ==========================================
+    // 3. MONTH & RECURRING EVENTS GENERATOR LOGIC
+    // ==========================================
+    let activeMonthMode = "single";
+
+    function toggleMonthMode(mode) {
+      activeMonthMode = mode;
+      const singleDiv = document.getElementById("single-month-fields");
+      const bulkDiv = document.getElementById("bulk-month-fields");
+      const singleBtn = document.getElementById("mode-single-btn");
+      const bulkBtn = document.getElementById("mode-bulk-btn");
+
+      if (mode === "single") {
+        singleDiv.style.display = "block";
+        bulkDiv.style.display = "none";
+        singleBtn.style.background = "#2c5e3b";
+        bulkBtn.style.background = "#666";
+      } else {
+        singleDiv.style.display = "none";
+        bulkDiv.style.display = "block";
+        singleBtn.style.background = "#666";
+        bulkBtn.style.background = "#2c5e3b";
+      }
+    }
+
+    function getNthWeekday(year, monthIndex, weekday, n) {
+      let count = 0;
+      const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const d = new Date(year, monthIndex, day);
+        if (d.getDay() === weekday) {
+          count++;
+          if (count === n) return day;
+        }
+      }
+      return null;
+    }
+
+    const MONTH_NAMES = [
       "January", "February", "March", "April", "May", "June", 
       "July", "August", "September", "October", "November", "December"
     ];
-    const currentMonthKey = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
 
-    // 4. Default to current month if present in JSON, else fallback to first key
-    if (globalCalendarData[currentMonthKey]) {
-      monthSelect.value = currentMonthKey;
-    } else if (Object.keys(globalCalendarData).length > 0) {
-      monthSelect.value = Object.keys(globalCalendarData)[0];
-    }
+    document.getElementById("add-month-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById("add-month-status");
+      statusDiv.style.color = "#333";
+      statusDiv.innerText = "Generating months & updating server...";
 
-    // 5. Load events for the selected month
-    renderCalendarEventList();
+      const addMembersMeeting = document.getElementById("add-members-meeting").checked;
+      const addBoardMeeting = document.getElementById("add-board-meeting").checked;
 
-  } catch (err) {
-    console.error("Error initializing calendar:", err);
-    monthSelect.innerHTML = `<option value="">Error loading months</option>`;
-  }
-}
+      let monthsToGenerate = [];
 
-function renderCalendarEventList() {
-  const monthKey = document.getElementById("cal-month").value;
-  const listContainer = document.getElementById("calendar-events-list");
-  const monthData = globalCalendarData[monthKey];
+      if (activeMonthMode === "single") {
+        const mIdx = parseInt(document.getElementById("new-month-name").value);
+        const yr = parseInt(document.getElementById("new-month-year").value);
+        monthsToGenerate.push({ monthIndex: mIdx, year: yr });
+      } else {
+        const startIdx = parseInt(document.getElementById("bulk-start-month").value);
+        const endIdx = parseInt(document.getElementById("bulk-end-month").value);
+        const yr = parseInt(document.getElementById("bulk-year").value);
 
-  listContainer.innerHTML = "";
+        if (startIdx > endIdx) {
+          statusDiv.style.color = "red";
+          statusDiv.innerText = "❌ Start month must be before or equal to End month.";
+          return;
+        }
 
-  if (!monthData || !monthData.events || Object.keys(monthData.events).length === 0) {
-    listContainer.innerText = "No events listed for this month.";
-    return;
-  }
+        for (let i = startIdx; i <= endIdx; i++) {
+          monthsToGenerate.push({ monthIndex: i, year: yr });
+        }
+      }
 
-  // Sort and display events numerically by day
-  Object.keys(monthData.events)
-    .sort((a, b) => Number(a) - Number(b))
-    .forEach(day => {
-      const row = document.createElement("div");
-      row.className = "item-row";
-      row.innerHTML = `
-        <div>
-          <strong>Day ${day}:</strong> ${monthData.events[day]}
-        </div>
-        <div>
-          <button class="btn-delete" onclick="deleteCalendarDay('${monthKey}', '${day}')">Remove</button>
-        </div>
-      `;
-      listContainer.appendChild(row);
-    });
-}
+      const newMonthsPayload = {};
 
-// ==========================================
-// MONTH & RECURRING EVENTS GENERATOR LOGIC
-// ==========================================
+      monthsToGenerate.forEach(item => {
+        const monthKey = `${MONTH_NAMES[item.monthIndex]} ${item.year}`;
+        const events = {};
 
-let activeMonthMode = "single";
+        if (addMembersMeeting) {
+          const day1 = getNthWeekday(item.year, item.monthIndex, 2, 1);
+          if (day1) events[day1.toString()] = "Members Meeting @ 7pm";
+        }
 
-function toggleMonthMode(mode) {
-  activeMonthMode = mode;
-  const singleDiv = document.getElementById("single-month-fields");
-  const bulkDiv = document.getElementById("bulk-month-fields");
-  const singleBtn = document.getElementById("mode-single-btn");
-  const bulkBtn = document.getElementById("mode-bulk-btn");
+        if (addBoardMeeting) {
+          const day3 = getNthWeekday(item.year, item.monthIndex, 2, 3);
+          if (day3) events[day3.toString()] = "Board Members Meeting @ 7pm";
+        }
 
-  if (mode === "single") {
-    singleDiv.style.display = "block";
-    bulkDiv.style.display = "none";
-    singleBtn.style.background = "#2c5e3b";
-    bulkBtn.style.background = "#666";
-  } else {
-    singleDiv.style.display = "none";
-    bulkDiv.style.display = "block";
-    singleBtn.style.background = "#666";
-    bulkBtn.style.background = "#2c5e3b";
-  }
-}
+        newMonthsPayload[monthKey] = {
+          year: item.year,
+          monthIndex: item.monthIndex,
+          events: events
+        };
+      });
 
-// Helper to calculate Nth weekday of a given month (e.g. 1st Tuesday, 3rd Tuesday)
-function getNthWeekday(year, monthIndex, weekday, n) {
-  let count = 0;
-  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-  for (let day = 1; day <= daysInMonth; day++) {
-    const d = new Date(year, monthIndex, day);
-    if (d.getDay() === weekday) {
-      count++;
-      if (count === n) return day;
-    }
-  }
-  return null;
-}
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            target: "calendar",
+            action: "addMonths",
+            newMonths: newMonthsPayload
+          })
+        });
 
-const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June", 
-  "July", "August", "September", "October", "November", "December"
-];
-
-document.getElementById("add-month-form").addEventListener("submit", async function (e) {
-  e.preventDefault();
-  const statusDiv = document.getElementById("add-month-status");
-  statusDiv.style.color = "#333";
-  statusDiv.innerText = "Generating months & updating server...";
-
-  const addMembersMeeting = document.getElementById("add-members-meeting").checked;
-  const addBoardMeeting = document.getElementById("add-board-meeting").checked;
-
-  let monthsToGenerate = [];
-
-  if (activeMonthMode === "single") {
-    const mIdx = parseInt(document.getElementById("new-month-name").value);
-    const yr = parseInt(document.getElementById("new-month-year").value);
-    monthsToGenerate.push({ monthIndex: mIdx, year: yr });
-  } else {
-    const startIdx = parseInt(document.getElementById("bulk-start-month").value);
-    const endIdx = parseInt(document.getElementById("bulk-end-month").value);
-    const yr = parseInt(document.getElementById("bulk-year").value);
-
-    if (startIdx > endIdx) {
-      statusDiv.style.color = "red";
-      statusDiv.innerText = "❌ Start month must be before or equal to End month.";
-      return;
-    }
-
-    for (let i = startIdx; i <= endIdx; i++) {
-      monthsToGenerate.push({ monthIndex: i, year: yr });
-    }
-  }
-
-  // Construct payload object for all generated months
-  const newMonthsPayload = {};
-
-  monthsToGenerate.forEach(item => {
-    const monthKey = `${MONTH_NAMES[item.monthIndex]} ${item.year}`;
-    const events = {};
-
-    // Auto-calculate 1st Tuesday (Members Meeting) -> Tuesday = 2
-    if (addMembersMeeting) {
-      const day1 = getNthWeekday(item.year, item.monthIndex, 2, 1);
-      if (day1) events[day1.toString()] = "Members Meeting @ 7pm";
-    }
-
-    // Auto-calculate 3rd Tuesday (Board Meeting) -> Tuesday = 2
-    if (addBoardMeeting) {
-      const day3 = getNthWeekday(item.year, item.monthIndex, 2, 3);
-      if (day3) events[day3.toString()] = "Board Members Meeting @ 7pm";
-    }
-
-    newMonthsPayload[monthKey] = {
-      year: item.year,
-      monthIndex: item.monthIndex,
-      events: events
-    };
-  });
-
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        target: "calendar",
-        action: "addMonths",
-        newMonths: newMonthsPayload
-      })
+        if (res.ok) {
+          statusDiv.style.color = "green";
+          statusDiv.innerText = `✅ Successfully created ${Object.keys(newMonthsPayload).length} month(s) with recurring meetings!`;
+          setTimeout(() => {
+            initAdminCalendar();
+            statusDiv.innerText = "";
+          }, 2000);
+        } else {
+          throw new Error("Worker failed to save new months.");
+        }
+      } catch (err) {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "❌ Error: " + err.message;
+      }
     });
 
-    if (res.ok) {
-      statusDiv.style.color = "green";
-      statusDiv.innerText = `✅ Successfully created ${Object.keys(newMonthsPayload).length} month(s) with recurring meetings!`;
+    // ==========================================
+    // 4. BROWSER WEBP CONVERTER & MULTI-PHOTO EVENT MANAGER
+    // ==========================================
+    async function processAndCompressImage(file, maxKb = 150) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            let width = img.width;
+            let height = img.height;
+
+            const maxDimension = 1920;
+            if (width > maxDimension || height > maxDimension) {
+              if (width > height) {
+                height = Math.round((height * maxDimension) / width);
+                width = maxDimension;
+              } else {
+                width = Math.round((width * maxDimension) / height);
+                height = maxDimension;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            let quality = 0.90;
+            let base64Result = "";
+            let sizeKb = Infinity;
+
+            do {
+              base64Result = canvas.toDataURL("image/webp", quality);
+              const stringLength = base64Result.split(',')[1].length;
+              sizeKb = (stringLength * (3 / 4)) / 1024;
+              quality -= 0.05;
+            } while (sizeKb > maxKb && quality > 0.10);
+
+            if (sizeKb > maxKb) {
+              reject(new Error(`Unable to compress image below ${maxKb}KB.`));
+            } else {
+              resolve({
+                base64Data: base64Result.split(',')[1],
+                finalSizeKb: sizeKb.toFixed(2)
+              });
+            }
+          };
+        };
+        reader.onerror = (err) => reject(err);
+      });
+    }
+
+    function toggleEventFields() {
+      const type = document.getElementById("event-type").value;
+      document.getElementById("upcoming-fields").style.display = type === "upcoming" ? "block" : "none";
+      document.getElementById("past-fields").style.display = type === "past" ? "block" : "none";
+    }
+
+    async function loadEventsList() {
+      const listContainer = document.getElementById("events-list");
+      try {
+        const res = await fetch(EVENTS_JSON_URL + "?cache=" + Date.now());
+        const data = await res.json();
+
+        listContainer.innerHTML = "";
+
+        const allEvents = [
+          ...(data.upcoming || []).map(e => ({ ...e, type: 'Upcoming' })),
+          ...(data.past || []).map(e => ({ ...e, type: 'Past' }))
+        ];
+
+        if (allEvents.length === 0) {
+          listContainer.innerText = "No existing events found.";
+          return;
+        }
+
+        allEvents.forEach(item => {
+          const row = document.createElement("div");
+          row.className = "item-row";
+          row.innerHTML = `
+            <div>
+              <span class="category-badge">${item.type}</span>
+              <strong>${item.title}</strong><br>
+              <small style="color:#666;">${item.date}</small>
+            </div>
+            <div>
+              <button class="btn-delete" onclick="deleteEvent('${item.id}')">Delete</button>
+            </div>
+          `;
+          listContainer.appendChild(row);
+        });
+
+      } catch (err) {
+        listContainer.innerText = "Error loading existing events.";
+      }
+    }
+
+    document.getElementById("event-admin-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById("event-status");
+      statusDiv.style.color = "#333";
+
+      const files = Array.from(document.getElementById("event-image-files").files);
+      const folderName = document.getElementById("event-folder").value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+      const type = document.getElementById("event-type").value;
       
-      // Refresh the dropdown and event manager list
-      setTimeout(() => {
-        initAdminCalendar();
-        statusDiv.innerText = "";
-      }, 2000);
-    } else {
-      throw new Error("Worker failed to save new months.");
+      if (files.length === 0) return;
+
+      try {
+        statusDiv.innerText = `Processing and compressing ${files.length} photo(s)...`;
+        
+        const processedImages = [];
+        for (let i = 0; i < files.length; i++) {
+          const photoNum = i + 1;
+          const { base64Data } = await processAndCompressImage(files[i], 150);
+          
+          processedImages.push({
+            path: `images/gallery/${folderName}/${photoNum}.webp`,
+            base64: base64Data
+          });
+        }
+
+        const mainImagePath = `images/gallery/${folderName}/1.webp`;
+
+        const newEvent = {
+          id: `event-${Date.now()}`,
+          title: document.getElementById("event-title").value,
+          date: document.getElementById("event-date").value,
+          description: document.getElementById("event-description").value,
+          image: mainImagePath
+        };
+
+        if (type === "upcoming") {
+          newEvent.featured = document.getElementById("event-featured").checked;
+          if (newEvent.featured) newEvent.featuredBadge = "⭐ FEATURED EVENT";
+          const loc = document.getElementById("event-location").value;
+          if (loc) newEvent.location = loc;
+        } else {
+          newEvent.thumb = mainImagePath;
+          newEvent.hasGallery = true;
+          newEvent.galleryFolder = `images/gallery/${folderName}`;
+          newEvent.photoCount = files.length;
+        }
+
+        statusDiv.innerText = "Publishing event and photos to GitHub...";
+
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            target: "events",
+            action: "addMultiPhoto",
+            eventType: type,
+            newEvent: newEvent,
+            images: processedImages
+          })
+        });
+
+        if (res.ok) {
+          statusDiv.style.color = "green";
+          statusDiv.innerText = `✅ Uploaded ${files.length} photo(s) and published event successfully!`;
+          document.getElementById("event-admin-form").reset();
+          setTimeout(loadEventsList, 2000);
+        } else {
+          throw new Error("Failed to commit event and photos.");
+        }
+      } catch (err) {
+        statusDiv.style.color = "red";
+        statusDiv.innerText = "❌ Error: " + err.message;
+      }
+    });
+
+    async function deleteEvent(id) {
+      if (!confirm("Are you sure you want to delete this event permanently?")) return;
+
+      await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          target: "events",
+          action: "delete",
+          id: id
+        })
+      });
+      setTimeout(loadEventsList, 2000);
     }
-  } catch (err) {
-    statusDiv.style.color = "red";
-    statusDiv.innerText = "❌ Error: " + err.message;
-  }
-});
 
-// Re-render event list when user changes dropdown selection
-document.getElementById("cal-month").addEventListener("change", renderCalendarEventList);
-
-// Initial Page Load
-loadAnnouncements();
-initAdminCalendar();
+    // ==========================================
+    // INITIAL PAGE LOAD
+    // ==========================================
+    loadAnnouncements();
+    initAdminCalendar();
+    loadEventsList();
   </script>
 </body>
 </html>
