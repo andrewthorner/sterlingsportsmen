@@ -955,8 +955,10 @@ nav a.active {
 }
 
 /* --------------------------------------------------------------------------
-   9. PAGE SPECIFIC: EVENTS (events.html)
+   9. PAGE SPECIFIC: EVENTS & GALLERY (events.html)
    -------------------------------------------------------------------------- */
+
+/* Outer Page Layout */
 .containere {
   width: 90%;
   max-width: 1200px;
@@ -983,18 +985,30 @@ nav a.active {
   text-transform: uppercase;
 }
 
-.featured-event {
+/* ==========================================================================
+   UPCOMING EVENTS SECTION
+   ========================================================================== */
+#upcoming-events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* 1. Featured Event Card (Full-Width Hero Layout) */
+.event-card.featured-event {
   display: grid;
   grid-template-columns: 400px 1fr;
   gap: 25px;
   background: #f4f1e8;
   border-radius: 8px;
   padding: 20px;
+  border: 1px solid #d3ccba;
   border-left: 6px solid #8b0000;
-  margin-bottom: 30px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.event-img-container {
+.event-card.featured-event .event-img-container {
   position: relative;
   width: 100%;
   height: 340px;
@@ -1003,6 +1017,32 @@ nav a.active {
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
+/* 2. Side-by-Side Grid for Non-Featured Events */
+.upcoming-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+  gap: 20px;
+  width: 100%;
+}
+
+.upcoming-grid .event-card {
+  display: flex;
+  flex-direction: column;
+  background: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.upcoming-grid .event-img-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Uniform height for grid items */
+  overflow: hidden;
+}
+
+/* Common Image & Typography Rules */
 .event-img {
   width: 100%;
   height: 100%;
@@ -1019,6 +1059,13 @@ nav a.active {
   font-weight: bold;
   padding: 5px 10px;
   border-radius: 4px;
+}
+
+.event-details {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .event-details h3 {
@@ -1041,25 +1088,9 @@ nav a.active {
   font-size: 0.9rem;
 }
 
-.upcoming-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 25px;
-}
-
-.upcoming-grid .event-card {
-  background: #fdfdfd;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.upcoming-grid .event-details {
-  padding: 20px;
-}
-
+/* ==========================================================================
+   PAST EVENTS ACCORDION & LIST
+   ========================================================================== */
 .past-events-accordion {
   cursor: pointer;
 }
@@ -1100,6 +1131,17 @@ details[open] .accordion-icon {
   align-items: center;
 }
 
+.past-event-item.clickable {
+  cursor: pointer;
+  transition: background 0.2s ease;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.past-event-item.clickable:hover {
+  background: #f4f1e8;
+}
+
 .past-event-item:last-child {
   border-bottom: none;
   margin-bottom: 0;
@@ -1127,13 +1169,15 @@ details[open] .accordion-icon {
 }
 
 /* ==========================================================================
-   GALLERY LIGHTBOX MODAL STYLES
+   GALLERY LIGHTBOX MODAL
    ========================================================================== */
 .modal-overlay {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
   background: rgba(0, 0, 0, 0.85);
   z-index: 9999;
   justify-content: center;
@@ -1159,70 +1203,16 @@ details[open] .accordion-icon {
 
 .modal-close-btn {
   position: absolute;
-  top: 10px; right: 15px;
+  top: 10px; 
+  right: 15px;
   background: none;
   border: none;
   color: #fff;
   font-size: 2rem;
   cursor: pointer;
+  z-index: 15;
 }
 
-/* Main Large Featured Photo */
-.main-photo-container {
-  width: 100%;
-  height: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  margin: 15px 0;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.main-photo-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* Horizontal One-Row Thumbnail Scrollbar */
-.thumbs-scroll-row {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  scroll-behavior: smooth;
-}
-
-/* Custom Scrollbar Styling */
-.thumbs-scroll-row::-webkit-scrollbar {
-  height: 8px;
-}
-.thumbs-scroll-row::-webkit-scrollbar-thumb {
-  background: #2c5e3b;
-  border-radius: 4px;
-}
-
-.gallery-thumb {
-  width: 90px;
-  height: 65px;
-  object-fit: cover;
-  border-radius: 4px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.2s, border 0.2s;
-  flex-shrink: 0;
-  border: 2px solid transparent;
-}
-
-.gallery-thumb:hover, 
-.gallery-thumb.active {
-  opacity: 1;
-  border-color: #2c5e3b;
-}
-
-/* Position container relative for overlay arrows */
 .main-photo-container {
   position: relative;
   width: 100%;
@@ -1240,11 +1230,10 @@ details[open] .accordion-icon {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  cursor: pointer; /* Indicates image is clickable to advance */
+  cursor: pointer;
   user-select: none;
 }
 
-/* Translucent Navigation Arrows */
 .nav-arrow {
   position: absolute;
   top: 50%;
@@ -1256,25 +1245,19 @@ details[open] .accordion-icon {
   padding: 15px 12px;
   cursor: pointer;
   border-radius: 4px;
-  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  transition: background 0.2s, color 0.2s;
   z-index: 10;
   user-select: none;
 }
 
 .nav-arrow:hover {
-  background: rgba(44, 94, 59, 0.85); /* Accent color on hover */
+  background: rgba(44, 94, 59, 0.85);
   color: #fff;
 }
 
-.prev-arrow {
-  left: 10px;
-}
+.prev-arrow { left: 10px; }
+.next-arrow { right: 10px; }
 
-.next-arrow {
-  right: 10px;
-}
-
-/* Fullscreen Button in Corner of Photo Container */
 .fullscreen-btn {
   position: absolute;
   top: 10px;
@@ -1294,7 +1277,43 @@ details[open] .accordion-icon {
   background: rgba(44, 94, 59, 0.85);
 }
 
-/* Styles applied when browser Enters Native Fullscreen */
+/* Horizontal Thumbnail Strip */
+.thumbs-scroll-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+.thumbs-scroll-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.thumbs-scroll-row::-webkit-scrollbar-thumb {
+  background: #2c5e3b;
+  border-radius: 4px;
+}
+
+.gallery-thumb-item {
+  width: 90px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+}
+
+.gallery-thumb-item:hover, 
+.gallery-thumb-item.active {
+  opacity: 1;
+  border-color: #2c5e3b;
+}
+
+/* Native Fullscreen Rules */
 .main-photo-container:fullscreen {
   width: 100vw;
   height: 100vh;
@@ -1312,9 +1331,38 @@ details[open] .accordion-icon {
   object-fit: contain;
 }
 
-.main-photo-container:fullscreen .nav-arrow {
-  font-size: 3rem;
-  padding: 20px 16px;
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (MOBILE & TABLETS)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Collapse featured card to single column */
+  .event-card.featured-event {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card.featured-event .event-img-container {
+    height: 240px;
+  }
+
+  /* Collapse side-by-side grid to single column */
+  .upcoming-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust past event items */
+  .past-event-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .past-event-thumb {
+    width: 100%;
+    height: 180px;
+  }
+
+  .main-photo-container {
+    height: 300px;
+  }
 }
 /* --------------------------------------------------------------------------
    10. PAGE SPECIFIC: MEMBERSHIP (membership.html)
