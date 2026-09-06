@@ -109,5 +109,13 @@
       "3": "Members Meeting @ 7pm",
       "17": "Board Members Meeting @ 7pm"
     }
+  },
+  "September 2027": {
+    "year": 2027,
+    "monthIndex": 8,
+    "events": {
+      "7": "Members Meeting @ 7pm",
+      "21": "Board Members Meeting @ 7pm"
+    }
   }
 }
