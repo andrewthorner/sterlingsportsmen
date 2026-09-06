@@ -1,0 +1,51 @@
+{
+  "upcoming": [
+    {
+      "id": "event-banquet-2026",
+      "title": "Annual Sportsmen Banquet",
+      "date": "📅 EVERY MARCH | Annual Marquee Gathering",
+      "featured": true,
+      "featuredBadge": "⭐ FEATURED EVENT",
+      "image": "images/gallery/banquet-2026/4.webp",
+      "description": "Our flagship annual celebration! The Sportsmen Banquet is our biggest community event of the year, featuring a full dinner, social gathering, and a massive raffle with dozens of premium firearms, sporting gear, and door prizes.",
+      "extraNote": "Tickets sell out early every year—contact a board member for ticket availability!"
+    },
+    {
+      "id": "event-youth-hunt-2026",
+      "title": "Youth Deer Hunt Buck Pole",
+      "date": "📅 SEPTEMBER 12, 2026",
+      "featured": false,
+      "image": "images/Webp/YouthHunt.webp",
+      "description": "Supporting Michigan's next generation of hunters! We sponsor youth hunters during Michigan's early youth deer season, encouraging safe hunting habits and conservation traditions."
+    },
+    {
+      "id": "event-buck-pole-2026",
+      "title": "Annual Buck Pole",
+      "date": "📅 (Actual Event: TBD) (Opening Day: NOVEMBER 15, 2026)",
+      "location": "📍 American Legion | Standish, MI",
+      "featured": false,
+      "image": "images/Webp/BuckPole.webp",
+      "description": "Bring your firearm deer season harvest to the American Legion in Standish! Join fellow hunters to hang your buck, compare antlers, win contest prizes, and celebrate Opening Day traditions."
+    }
+  ],
+  "past": [
+    {
+      "id": "past-banquet-2026",
+      "title": "2026 Sportsmen Banquet Highlights",
+      "date": "March 2026",
+      "thumb": "images/gallery/banquet-2026/10.webp",
+      "description": "A fantastic turnout! Click to view gallery →",
+      "hasGallery": true,
+      "galleryFolder": "images/gallery/banquet-2026",
+      "photoCount": 27
+    },
+    {
+      "id": "past-safety-2025",
+      "title": "2025 Youth Hunter Safety Class",
+      "date": "August 2025",
+      "thumb": "images/Webp/HuntersSaftey.webp",
+      "description": "Our DNR-certified instructors successfully certified 35 young outdoorsmen and women in firearm safety, wildlife conservation, and bowhunting ethics.",
+      "hasGallery": false
+    }
+  ]
+}
