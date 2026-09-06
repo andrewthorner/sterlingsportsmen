@@ -4,7 +4,9 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   
-// 1. LOAD SHARED HEADER
+  // ==========================================================================
+  // 1. LOAD SHARED HEADER
+  // ==========================================================================
   const headerContainer = document.getElementById("header-placeholder");
   if (headerContainer) {
     fetch("resources/header.html")
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // --- HAMBURGER MENU TOGGLE LOGIC ---
+        // Hamburger Menu Toggle
         const menuToggle = headerContainer.querySelector(".mobile-menu-toggle");
         const navMenu = headerContainer.querySelector(".nav-menu");
 
@@ -38,7 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(err => console.error("Error loading header:", err));
   }
 
+  // ==========================================================================
   // 2. LOAD SHARED FOOTER
+  // ==========================================================================
   const footerContainer = document.getElementById("footer-placeholder");
   if (footerContainer) {
     fetch("resources/footer.html")
@@ -52,11 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(err => console.error("Error loading footer:", err));
   }
 
-  // 3. HERO BANNER SLIDESHOW (Runs if hero slides exist on page)
+  // ==========================================================================
+  // 3. HERO BANNER SLIDESHOW
+  // ==========================================================================
   const slides = document.querySelectorAll(".hero-slide");
   if (slides.length > 0) {
     let currentSlide = 0;
-    const slideInterval = 5000; // 5 seconds per slide
+    const slideInterval = 5000;
 
     function nextSlide() {
       slides[currentSlide].classList.remove("active");
@@ -66,11 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(nextSlide, slideInterval);
   }
-// 4. MULTI-SLIDESHOW HANDLER (Runs slideshows for facility cards)
+
+  // ==========================================================================
+  // 4. MULTI-SLIDESHOW HANDLER (Facility Cards)
+  // ==========================================================================
   const slideshows = document.querySelectorAll(".facility-slideshow");
   slideshows.forEach(slideshow => {
     const slides = slideshow.querySelectorAll(".facility-slide");
-    if (slides.length < 2) return; // Skip if only 1 image
+    if (slides.length < 2) return;
 
     let currentSlide = 0;
     const intervalTime = parseInt(slideshow.getAttribute("data-interval")) || 4000;
@@ -82,24 +91,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }, intervalTime);
   });
 
-  // 5. MOBILE CALENDAR EVENT POPUP
-  const eventDays = document.querySelectorAll(".calendar-table td.event-day");
-  
-  eventDays.forEach(day => {
-    // Make the calendar cell look clickable/tappable
-    day.style.cursor = "pointer";
-
-    day.addEventListener("click", function () {
-      const eventTitle = this.getAttribute("title");
-      const dayNumber = this.innerText.trim();
-
-      if (eventTitle) {
-        alert(`September ${dayNumber}, 2026\nEvent: ${eventTitle}`);
-      }
-    });
-  });
-// ==========================================================================
-  // DYNAMIC 12-MONTH CALENDAR GENERATOR (AUTO-DETECT CURRENT MONTH)
+  // ==========================================================================
+  // 5. DYNAMIC CALENDAR GENERATOR (AUTO-DETECT CURRENT MONTH)
   // ==========================================================================
   const monthSelect = document.getElementById("month-select");
   const calendarContainer = document.getElementById("calendar-container");
@@ -107,13 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (monthSelect && calendarContainer) {
     let calendarData = {};
 
-    // Fetch calendar data JSON
-    fetch("resources/calendar-data.json")
+    fetch("resources/calendar-data.json?v=" + Date.now())
       .then(res => res.json())
       .then(data => {
         calendarData = data;
 
-        // Populate dropdown options
         monthSelect.innerHTML = "";
         Object.keys(calendarData).forEach(monthName => {
           const opt = document.createElement("option");
@@ -122,27 +113,22 @@ document.addEventListener("DOMContentLoaded", function () {
           monthSelect.appendChild(opt);
         });
 
-        // 1. AUTO-DETECT CURRENT REAL-WORLD MONTH & YEAR
         const now = new Date();
         const monthNames = [
           "January", "February", "March", "April", "May", "June", 
           "July", "August", "September", "October", "November", "December"
         ];
         
-        // Build the current month key format (e.g. "October 2026")
         const currentMonthKey = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
 
-        // 2. DEFAULT TO CURRENT MONTH IF IT EXISTS IN JSON, OTHERWISE FALLBACK TO FIRST AVAILABLE
         let defaultMonth = currentMonthKey;
         if (!calendarData[currentMonthKey]) {
-          defaultMonth = Object.keys(calendarData)[0]; // Fallback to first month in JSON if out of range
+          defaultMonth = Object.keys(calendarData)[0];
         }
 
-        // Set the dropdown menu selection and render the calendar
         monthSelect.value = defaultMonth;
         renderCalendar(defaultMonth);
 
-        // Handle dropdown selection changes manually
         monthSelect.addEventListener("change", function () {
           renderCalendar(this.value);
         });
@@ -154,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!info) return;
 
       const year = info.year;
-      const month = info.monthIndex; // 0 = Jan, 8 = Sept
+      const month = info.monthIndex;
       const events = info.events || {};
 
       const firstDay = new Date(year, month, 1).getDay();
@@ -166,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
         </thead>
         <tbody><tr>`;
 
-      // Fill empty cells before day 1
       for (let i = 0; i < firstDay; i++) {
         html += `<td></td>`;
       }
@@ -191,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
         dayOfWeek++;
       }
 
-      // Fill remaining empty cells at month end
       while (dayOfWeek > 0 && dayOfWeek < 7) {
         html += `<td></td>`;
         dayOfWeek++;
@@ -200,9 +184,9 @@ document.addEventListener("DOMContentLoaded", function () {
       html += `</tr></tbody></table>`;
       calendarContainer.innerHTML = html;
 
-      // Attach click/tap popup events
       const eventCells = calendarContainer.querySelectorAll("td.event-day");
       eventCells.forEach(cell => {
+        cell.style.cursor = "pointer";
         cell.addEventListener("click", function () {
           const day = this.getAttribute("data-day");
           const evt = this.getAttribute("data-event");
@@ -211,25 +195,25 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
+
   // ==========================================================================
-  // DYNAMIC ANNOUNCEMENTS, PINNED STORY & POPUP MODAL
+  // 6. DYNAMIC ANNOUNCEMENTS, PINNED STORY & POPUP MODAL
   // ==========================================================================
   const pinnedContainer = document.getElementById("pinned-announcement");
   const newsScrollbox = document.getElementById("news-scrollbox");
-  const modal = document.getElementById("news-modal");
+  const newsModal = document.getElementById("news-modal");
   const modalTitle = document.getElementById("modal-title");
   const modalDate = document.getElementById("modal-date");
   const modalBody = document.getElementById("modal-body");
   const modalClose = document.getElementById("modal-close");
 
   if (pinnedContainer && newsScrollbox) {
-    fetch("resources/announcements.json")
+    fetch("resources/announcements.json?v=" + Date.now())
       .then(res => res.json())
       .then(data => {
         pinnedContainer.innerHTML = "";
         newsScrollbox.innerHTML = "";
 
-        // Fallback: Handles both raw arrays and nested object lists cleanly!
         const newsData = Array.isArray(data) ? data : (data.announcements || []);
 
         newsData.forEach(item => {
@@ -254,13 +238,12 @@ document.addEventListener("DOMContentLoaded", function () {
             newsScrollbox.appendChild(itemDiv);
           }
 
-          // Attach click listener for modal popup
           if (item.hasPopup) {
             itemDiv.addEventListener("click", function () {
-              modalTitle.innerText = item.title;
-              modalDate.innerText = item.date;
-              modalBody.innerHTML = item.fullContent;
-              modal.classList.add("open");
+              if (modalTitle) modalTitle.innerText = item.title;
+              if (modalDate) modalDate.innerText = item.date;
+              if (modalBody) modalBody.innerHTML = item.fullContent;
+              if (newsModal) newsModal.classList.add("open");
             });
           }
         });
@@ -268,193 +251,283 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(err => console.error("Error loading announcements:", err));
   }
 
-  // Close modal when clicking 'X' or outside the card
-  if (modalClose && modal) {
-    modalClose.addEventListener("click", () => modal.classList.remove("open"));
-    
-    modal.addEventListener("click", function (e) {
-      if (e.target === modal) {
-        modal.classList.remove("open");
-      }
-    });
-  }
-// GALLERY MODAL LIGHTBOX WITH ARROWS & ADVANCE-ON-CLICK
-const galleryModal = document.getElementById("gallery-modal");
-const galleryTitle = document.getElementById("gallery-modal-title");
-const mainImg = document.getElementById("gallery-main-img");
-const thumbsContainer = document.getElementById("gallery-thumbs-scroll");
-const galleryClose = document.getElementById("gallery-modal-close");
-const prevBtn = document.getElementById("gallery-prev-btn");
-const nextBtn = document.getElementById("gallery-next-btn");
-
-if (galleryModal) {
-  let currentPhotos = [];
-  let currentIndex = 0;
-
-  // Helper function to show a specific image index
-  function showPhoto(index) {
-    if (currentPhotos.length === 0) return;
-    
-    // Wrap around index boundaries
-    if (index < 0) index = currentPhotos.length - 1;
-    if (index >= currentPhotos.length) index = 0;
-
-    currentIndex = index;
-    mainImg.src = currentPhotos[currentIndex];
-
-    // Highlight corresponding thumbnail and scroll into view
-    const thumbs = thumbsContainer.querySelectorAll(".gallery-thumb");
-    thumbs.forEach((t, i) => {
-      if (i === currentIndex) {
-        t.classList.add("active");
-        t.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-      } else {
-        t.classList.remove("active");
+  if (modalClose && newsModal) {
+    modalClose.addEventListener("click", () => newsModal.classList.remove("open"));
+    newsModal.addEventListener("click", function (e) {
+      if (e.target === newsModal) {
+        newsModal.classList.remove("open");
       }
     });
   }
 
-  // Open Modal Listener
-  document.querySelectorAll(".past-event-item[data-gallery-folder]").forEach(item => {
-    item.addEventListener("click", function () {
-      const title = this.getAttribute("data-gallery-title");
-      const folderPath = this.getAttribute("data-gallery-folder");
-      const photoCount = parseInt(this.getAttribute("data-photo-count")) || 0;
+  // ==========================================================================
+  // 7. CONTACT FORM SUBMISSION
+  // ==========================================================================
+  const contactForm = document.getElementById("contact-form");
+  const formStatus = document.getElementById("form-status");
+  const submitBtn = document.getElementById("submit-btn");
 
-      if (photoCount === 0) return;
+  if (contactForm) {
+    contactForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-      // Construct photo paths array
-      currentPhotos = [];
-      for (let i = 1; i <= photoCount; i++) {
-        currentPhotos.push(`${folderPath}/${i}.webp`);
-      }
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Sending...";
+      formStatus.innerText = "";
+      formStatus.style.color = "#333";
 
-      galleryTitle.innerText = title;
-      thumbsContainer.innerHTML = "";
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value,
+      };
 
-      // Build thumbnail bar
-      currentPhotos.forEach((photoUrl, index) => {
-        const thumb = document.createElement("img");
-        thumb.src = photoUrl;
-        thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
-
-        thumb.addEventListener("click", (e) => {
-          e.stopPropagation(); // Prevent trigger parent click
-          showPhoto(index);
+      try {
+        const response = await fetch("https://ssa-api.andrew-thorner.workers.dev/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         });
 
-        thumbsContainer.appendChild(thumb);
-      });
+        const result = await response.json();
 
-      showPhoto(0);
-      galleryModal.classList.add("open");
+        if (response.ok && result.success) {
+          formStatus.style.color = "#2c5e3b";
+          formStatus.innerText = "✓ Thank you! Your message has been sent successfully.";
+          contactForm.reset();
+        } else {
+          throw new Error(result.error || "Failed to send message.");
+        }
+      } catch (err) {
+        formStatus.style.color = "#a00000";
+        formStatus.innerText = "✕ Error: " + err.message;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Send Message";
+      }
     });
-  });
+  }
 
-  // Navigation Event Listeners
-  if (prevBtn) prevBtn.addEventListener("click", (e) => { e.stopPropagation(); showPhoto(currentIndex - 1); });
-  if (nextBtn) nextBtn.addEventListener("click", (e) => { e.stopPropagation(); showPhoto(currentIndex + 1); });
-  
-  // Advance to next photo on main image click
-  if (mainImg) mainImg.addEventListener("click", () => showPhoto(currentIndex + 1));
+  // ==========================================================================
+  // 8. DYNAMIC EVENTS RENDERER & LIGHTBOX BINDING (events.html)
+  // ==========================================================================
+  async function renderEventsPage() {
+    const upcomingContainer = document.getElementById("upcoming-events-container");
+    const pastContainer = document.getElementById("past-events-container");
 
-  // Keyboard navigation (Left / Right Arrow Keys)
-  document.addEventListener("keydown", function (e) {
-    if (!galleryModal.classList.contains("open")) return;
-    if (e.key === "ArrowLeft") showPhoto(currentIndex - 1);
-    if (e.key === "ArrowRight") showPhoto(currentIndex + 1);
-    if (e.key === "Escape") galleryModal.classList.remove("open");
-  });
-
-  // Close handlers
-  if (galleryClose) galleryClose.addEventListener("click", () => galleryModal.classList.remove("open"));
-
-  galleryModal.addEventListener("click", function (e) {
-    if (e.target === galleryModal) {
-      galleryModal.classList.remove("open");
-    }
-  });
-  // FULLSCREEN TOGGLE LOGIC
-// FULLSCREEN TOGGLE LOGIC
-const photoContainer = document.getElementById("main-photo-container");
-const fullscreenBtn = document.getElementById("gallery-fullscreen-btn");
-
-if (fullscreenBtn && photoContainer) {
-  fullscreenBtn.addEventListener("click", function (e) {
-    e.stopPropagation();
-
-    if (!document.fullscreenElement) {
-      if (photoContainer.requestFullscreen) {
-        photoContainer.requestFullscreen();
-      } else if (photoContainer.webkitRequestFullscreen) {
-        photoContainer.webkitRequestFullscreen();
-      }
-      fullscreenBtn.innerHTML = "&times;"; // Changes icon to 'X' when inside full-screen
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-      fullscreenBtn.innerHTML = "&#10064;"; // Reverts back to expand icon
-    }
-  });
-
-  document.addEventListener("fullscreenchange", function () {
-    if (!document.fullscreenElement) {
-      fullscreenBtn.innerHTML = "&#10064;";
-    }
-  });
-}
-}
-// CONTACT FORM WORKER SUBMISSION
-const contactForm = document.getElementById("contact-form");
-const formStatus = document.getElementById("form-status");
-const submitBtn = document.getElementById("submit-btn");
-
-if (contactForm) {
-  contactForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Sending...";
-    formStatus.innerText = "";
-    formStatus.style.color = "#333";
-
-    const formData = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      subject: document.getElementById("subject").value,
-      message: document.getElementById("message").value,
-    };
+    if (!upcomingContainer || !pastContainer) return;
 
     try {
-      // Replace with your Cloudflare Worker URL or relative path if routed on same domain
-      const response = await fetch("https://ssa-api.andrew-thorner.workers.dev/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch("resources/events.json?v=" + Date.now());
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      
+      const data = await res.json();
 
-      const result = await response.json();
+      // RENDER UPCOMING EVENTS
+      if (data.upcoming && data.upcoming.length > 0) {
+        const featuredList = data.upcoming.filter(e => e.featured);
+        const gridList = data.upcoming.filter(e => !e.featured);
 
-      if (response.ok && result.success) {
-        formStatus.style.color = "#2c5e3b";
-        formStatus.innerText = "✓ Thank you! Your message has been sent successfully.";
-        contactForm.reset();
+        let upcomingHtml = "";
+
+        // Render full-width featured hero cards
+        featuredList.forEach(e => {
+          upcomingHtml += `
+            <article class="event-card featured-event">
+              <div class="event-img-container">
+                <img src="${e.image}" alt="${e.title}" class="event-img">
+                ${e.featuredBadge ? `<span class="featured-badge">${e.featuredBadge}</span>` : ''}
+              </div>
+              <div class="event-details">
+                <h3>${e.title}</h3>
+                <p class="event-date">${e.date}</p>
+                ${e.location ? `<p class="event-location">${e.location}</p>` : ''}
+                <p>${e.description}</p>
+                ${e.extraNote ? `<p style="margin-top: 10px; font-weight: bold; color: #8b0000;">${e.extraNote}</p>` : ''}
+              </div>
+            </article>
+          `;
+        });
+
+        // Render remaining events in a 2-column side-by-side grid
+        if (gridList.length > 0) {
+          upcomingHtml += `<div class="upcoming-grid">`;
+          gridList.forEach(e => {
+            upcomingHtml += `
+              <article class="event-card">
+                <div class="event-img-container">
+                  <img src="${e.image}" alt="${e.title}" class="event-img">
+                </div>
+                <div class="event-details">
+                  <h3>${e.title}</h3>
+                  <p class="event-date">${e.date}</p>
+                  ${e.location ? `<p class="event-location">${e.location}</p>` : ''}
+                  <p>${e.description}</p>
+                </div>
+              </article>
+            `;
+          });
+          upcomingHtml += `</div>`;
+        }
+
+        upcomingContainer.innerHTML = upcomingHtml;
       } else {
-        throw new Error(result.error || "Failed to send message.");
+        upcomingContainer.innerHTML = "<p>No upcoming events scheduled at this time.</p>";
       }
+
+      // RENDER PAST EVENTS ARCHIVE
+      if (data.past && data.past.length > 0) {
+        pastContainer.innerHTML = data.past.map(e => `
+          <div class="past-event-item ${e.hasGallery ? 'clickable' : ''}" 
+               ${e.hasGallery ? `data-gallery-title="${e.title}" data-gallery-folder="${e.galleryFolder}" data-photo-count="${e.photoCount}"` : ''}>
+            <img src="${e.thumb}" alt="${e.title}" class="past-event-thumb">
+            <div class="past-event-info">
+              <h3>${e.title}</h3>
+              <p class="past-event-date">${e.date}</p>
+              <p>${e.description}</p>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        pastContainer.innerHTML = "<p>No past events found in archive.</p>";
+      }
+
+      // Re-bind lightbox event listeners to dynamic past items
+      bindGalleryListeners();
+
     } catch (err) {
-      formStatus.style.color = "#a00000";
-      formStatus.innerText = "✕ Error: " + err.message;
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Send Message";
+      console.error("Error loading events:", err);
+      if (upcomingContainer) upcomingContainer.innerHTML = `<p style="color:red;">Failed to load upcoming events.</p>`;
+      if (pastContainer) pastContainer.innerHTML = `<p style="color:red;">Failed to load past events archive.</p>`;
     }
-  });
-}
+  }
+
+  // BIND GALLERY LIGHTBOX MODAL LISTENERS
+  function bindGalleryListeners() {
+    const galleryModal = document.getElementById("gallery-modal");
+    const galleryTitle = document.getElementById("gallery-modal-title");
+    const mainImg = document.getElementById("gallery-main-img");
+    const thumbsContainer = document.getElementById("gallery-thumbs-scroll");
+    const galleryClose = document.getElementById("gallery-modal-close");
+    const prevBtn = document.getElementById("gallery-prev-btn");
+    const nextBtn = document.getElementById("gallery-next-btn");
+
+    if (!galleryModal) return;
+
+    let currentPhotos = [];
+    let currentIndex = 0;
+
+    function showPhoto(index) {
+      if (currentPhotos.length === 0) return;
+      
+      if (index < 0) index = currentPhotos.length - 1;
+      if (index >= currentPhotos.length) index = 0;
+
+      currentIndex = index;
+      mainImg.src = currentPhotos[currentIndex];
+
+      const thumbs = thumbsContainer.querySelectorAll(".gallery-thumb-item");
+      thumbs.forEach((t, i) => {
+        if (i === currentIndex) {
+          t.classList.add("active");
+          t.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        } else {
+          t.classList.remove("active");
+        }
+      });
+    }
+
+    document.querySelectorAll(".past-event-item.clickable").forEach(item => {
+      item.addEventListener("click", function () {
+        const title = this.getAttribute("data-gallery-title");
+        const folderPath = this.getAttribute("data-gallery-folder");
+        const photoCount = parseInt(this.getAttribute("data-photo-count")) || 0;
+
+        if (photoCount === 0) return;
+
+        currentPhotos = [];
+        for (let i = 1; i <= photoCount; i++) {
+          currentPhotos.push(`${folderPath}/${i}.webp`);
+        }
+
+        galleryTitle.innerText = title;
+        thumbsContainer.innerHTML = "";
+
+        currentPhotos.forEach((photoUrl, index) => {
+          const thumb = document.createElement("img");
+          thumb.src = photoUrl;
+          thumb.className = `gallery-thumb-item ${index === 0 ? 'active' : ''}`;
+
+          thumb.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showPhoto(index);
+          });
+
+          thumbsContainer.appendChild(thumb);
+        });
+
+        showPhoto(0);
+        galleryModal.classList.add("open");
+      });
+    });
+
+    if (prevBtn) prevBtn.onclick = (e) => { e.stopPropagation(); showPhoto(currentIndex - 1); };
+    if (nextBtn) nextBtn.onclick = (e) => { e.stopPropagation(); showPhoto(currentIndex + 1); };
+    if (mainImg) mainImg.onclick = () => showPhoto(currentIndex + 1);
+
+    document.onkeydown = function (e) {
+      if (!galleryModal.classList.contains("open")) return;
+      if (e.key === "ArrowLeft") showPhoto(currentIndex - 1);
+      if (e.key === "ArrowRight") showPhoto(currentIndex + 1);
+      if (e.key === "Escape") galleryModal.classList.remove("open");
+    };
+
+    if (galleryClose) galleryClose.onclick = () => galleryModal.classList.remove("open");
+
+    galleryModal.onclick = function (e) {
+      if (e.target === galleryModal) {
+        galleryModal.classList.remove("open");
+      }
+    };
+
+    // Fullscreen Toggle Logic
+    const photoContainer = document.getElementById("main-photo-container");
+    const fullscreenBtn = document.getElementById("gallery-fullscreen-btn");
+
+    if (fullscreenBtn && photoContainer) {
+      fullscreenBtn.onclick = function (e) {
+        e.stopPropagation();
+
+        if (!document.fullscreenElement) {
+          if (photoContainer.requestFullscreen) {
+            photoContainer.requestFullscreen();
+          } else if (photoContainer.webkitRequestFullscreen) {
+            photoContainer.webkitRequestFullscreen();
+          }
+          fullscreenBtn.innerHTML = "&times;";
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+          fullscreenBtn.innerHTML = "&#10064;";
+        }
+      };
+
+      document.onfullscreenchange = function () {
+        if (!document.fullscreenElement) {
+          fullscreenBtn.innerHTML = "&#10064;";
+        }
+      };
+    }
+  }
+
+  // Trigger events page renderer
+  renderEventsPage();
+
 });
