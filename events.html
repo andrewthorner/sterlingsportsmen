@@ -19,60 +19,19 @@
 
   <main class="containere">
     
+    <!-- UPCOMING EVENTS SECTION -->
     <section class="carde upcoming-section">
       <h2>Upcoming & Annual Featured Events</h2>
       
-      <article class="event-card featured-event">
-        <div class="event-img-container">
-          <img src="images/gallery/banquet-2026/4.webp" alt="Annual Sportsmen Banquet" class="event-img">
-          <span class="featured-badge">⭐ FEATURED EVENT</span>
-        </div>
-        <div class="event-details">
-          <h3>Annual Sportsmen Banquet</h3>
-          <p class="event-date">📅 EVERY MARCH | Annual Marquee Gathering</p>
-          <p>
-            Our flagship annual celebration! The Sportsmen Banquet is our biggest community event of the year, featuring a full dinner, social gathering, and a massive raffle with dozens of premium firearms, sporting gear, and door prizes.
-          </p>
-          <p style="margin-top: 10px; font-weight: bold; color: #8b0000;">
-            Tickets sell out early every year—contact a board member for ticket availability!
-          </p>
-        </div>
-      </article>
-
-      <div class="upcoming-grid">
-        
-        <article class="event-card">
-          <div class="event-img-container">
-            <img src="images/Webp/YouthHunt.webp" alt="Youth Deer Hunt Buck Pole" class="event-img">
-          </div>
-          <div class="event-details">
-            <h3>Youth Deer Hunt Buck Pole</h3>
-            <p class="event-date">📅 SEPTEMBER 12, 2026</p>
-            <p>
-              Supporting Michigan's next generation of hunters! We sponsor youth hunters during Michigan's early youth deer season, encouraging safe hunting habits and conservation traditions.
-            </p>
-          </div>
-        </article>
-
-        <article class="event-card">
-          <div class="event-img-container">
-            <img src="images/Webp/BuckPole.webp" alt="Annual Buck Pole in Standish" class="event-img">
-          </div>
-          <div class="event-details">
-            <h3>Annual Buck Pole</h3>
-            <p class="event-date">📅 (Acutal Event: TBD) (Opening Day:NOVEMBER 15, 2026) </p>
-            <p class="event-location">📍 American Legion | Standish, MI</p>
-            <p>
-              Bring your firearm deer season harvest to the American Legion in Standish! Join fellow hunters to hang your buck, compare antlers, win contest prizes, and celebrate Opening Day traditions.
-            </p>
-          </div>
-        </article>
-
+      <!-- Container populated dynamically from resources/events.json -->
+      <div id="upcoming-events-container">
+        <p style="color: #666;">Loading upcoming events...</p>
       </div>
     </section>
 
+    <!-- PAST EVENTS SECTION -->
     <section class="carde">
-      <details class="past-events-accordion">
+      <details class="past-events-accordion" open>
         <summary class="accordion-header">
           <h2>📁 Past Events & Gallery Archive (Click to Expand)</h2>
           <span class="accordion-icon">▼</span>
@@ -83,51 +42,32 @@
             Take a look back at highlights, photos, and recaps from our previous club outings and community events:
           </p>
 
-          <div class="past-event-item clickable" 
-              data-gallery-title="2026 Sportsmen Banquet Highlights" 
-              data-gallery-folder="images/gallery/banquet-2026" 
-              data-photo-count="27">
-            <img src="images/gallery/banquet-2026/10.webp" alt="2026 Banquet" class="past-event-thumb">
-            <div class="past-event-info">
-              <h3>2026 Sportsmen Banquet Highlights</h3>
-              <p class="past-event-date">March 2026</p>
-              <p>A fantastic turnout! Click to view gallery →</p>
-            </div>
+          <!-- Container populated dynamically from resources/events.json -->
+          <div id="past-events-container">
+            <p style="color: #666;">Loading past events archive...</p>
           </div>
-
-          <div class="past-event-item">
-            <img src="images/Webp/HuntersSaftey.webp" alt="Youth Hunter Safety Class" class="past-event-thumb">
-            <div class="past-event-info">
-              <h3>2025 Youth Hunter Safety Class</h3>
-              <p class="past-event-date">August 2025</p>
-              <p>
-                Our DNR-certified instructors successfully certified 35 young outdoorsmen and women in firearm safety, wildlife conservation, and bowhunting ethics.
-              </p>
-            </div>
-          </div>
-
         </div>
       </details>
     </section>
 
-<!-- GALLERY LIGHTBOX MODAL -->
-  <div id="gallery-modal" class="modal-overlay">
-    <div class="gallery-modal-content">
-      <button id="gallery-modal-close" class="modal-close-btn">&times;</button>
-      <h3 id="gallery-modal-title">Event Gallery</h3>
-      
-      <!-- Main Large Photo View -->
-      <div id="main-photo-container" class="main-photo-container">
-        <button id="gallery-fullscreen-btn" class="fullscreen-btn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">&#10064;</button>
-        <button id="gallery-prev-btn" class="nav-arrow prev-arrow" aria-label="Previous Photo">&#10094;</button>
-        <img id="gallery-main-img" src="" alt="Event Photo Large View">
-        <button id="gallery-next-btn" class="nav-arrow next-arrow" aria-label="Next Photo">&#10095;</button>
-      </div>
+    <!-- GALLERY LIGHTBOX MODAL -->
+    <div id="gallery-modal" class="modal-overlay">
+      <div class="gallery-modal-content">
+        <button id="gallery-modal-close" class="modal-close-btn">&times;</button>
+        <h3 id="gallery-modal-title">Event Gallery</h3>
+        
+        <!-- Main Large Photo View -->
+        <div id="main-photo-container" class="main-photo-container">
+          <button id="gallery-fullscreen-btn" class="fullscreen-btn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">&#10064;</button>
+          <button id="gallery-prev-btn" class="nav-arrow prev-arrow" aria-label="Previous Photo">&#10094;</button>
+          <img id="gallery-main-img" src="" alt="Event Photo Large View">
+          <button id="gallery-next-btn" class="nav-arrow next-arrow" aria-label="Next Photo">&#10095;</button>
+        </div>
 
-      <!-- Horizontal Scrollable Thumbnail Bar -->
-      <div id="gallery-thumbs-scroll" class="thumbs-scroll-row"></div>
+        <!-- Horizontal Scrollable Thumbnail Bar -->
+        <div id="gallery-thumbs-scroll" class="thumbs-scroll-row"></div>
+      </div>
     </div>
-  </div>
 
   </main>
 
