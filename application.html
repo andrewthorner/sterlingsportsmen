@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sterling Sportsmen's Association Membership Application</title>
+  <style>
+    @page {
+      size: letter portrait;
+      margin: 0.5in;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #000;
+      background: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+    .title-block {
+      text-align: left;
+    }
+    .title-block h1 {
+      font-size: 24pt;
+      margin: 0;
+      font-weight: bold;
+    }
+    .title-block h2 {
+      font-size: 20pt;
+      margin: 5px 0 0 0;
+      font-weight: bold;
+    }
+    .form-row {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 22px;
+      font-size: 14pt;
+    }
+    .line-field {
+      border-bottom: 1px solid #000;
+      flex-grow: 1;
+      margin-left: 8px;
+    }
+    .checkbox-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 30px 0 10px 0;
+      font-size: 13pt;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .checkbox-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #000;
+    }
+    .subtext {
+      text-align: center;
+      font-style: italic;
+      font-size: 12pt;
+      margin-bottom: 35px;
+    }
+    .footer-info {
+      text-align: center;
+      font-weight: bold;
+      font-size: 14pt;
+      line-height: 1.5;
+    }
+
+    /* Hide print settings headers/footers */
+    @media print {
+      body { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-container">
+    <!-- Replace with your logo path -->
+    <img src="images/Webp/SSA-Logo.webp" alt="Sterling Sportsmen's Association Logo" class="logo">
+    <div class="title-block">
+      <h1>Sterling Sportsmen’s Association</h1>
+      <h2>Membership Application</h2>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <span>Name:</span>
+    <div class="line-field"></div>
+    <span style="margin-left: 20px;">Date:</span>
+    <div class="line-field" style="max-width: 200px;"></div>
+  </div>
+
+  <div class="form-row">
+    <span>Address:</span>
+    <div class="line-field"></div>
+  </div>
+
+  <div class="form-row">
+    <span>City:</span>
+    <div class="line-field" style="flex-grow: 3;"></div>
+    <span style="margin-left: 15px;">State:</span>
+    <div class="line-field" style="flex-grow: 1;"></div>
+    <span style="margin-left: 15px;">Zip:</span>
+    <div class="line-field" style="flex-grow: 1;"></div>
+    <span style="margin-left: 15px;">Phone:</span>
+    <div class="line-field" style="flex-grow: 3;"></div>
+  </div>
+
+  <div class="form-row">
+    <span>Email:</span>
+    <div class="line-field"></div>
+  </div>
+
+  <div class="checkbox-row">
+    <div class="checkbox-item">
+      <div class="checkbox-box"></div>
+      <span>$20 Annual New Membership</span>
+    </div>
+    <div class="checkbox-item">
+      <div class="checkbox-box"></div>
+      <span>$20 Annual Renewal</span>
+    </div>
+    <div class="checkbox-item">
+      <div class="checkbox-box"></div>
+      <span>Lifetime Membership</span>
+    </div>
+  </div>
+
+  <div class="subtext">
+    (memberships include spouse and children under 18)
+  </div>
+
+  <div class="footer-info">
+    <div>For Lifetime Memberships contact a Board Member</div>
+    <div>Mailing address: PO Box 473 Sterling, MI 48659</div>
+  </div>
+
+</body>
+</html>
