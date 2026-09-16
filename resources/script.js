@@ -26,37 +26,37 @@ function clearActiveIntervals() {
 const ROUTES = {
   "/": {
     title: "Sterling Sportsmen Association",
-    fragment: "resources/pages/home.html",
+    fragment: "/resources/pages/home.html",
     init: initHomePage,
   },
   "/about": {
     title: "About Us | Sterling Sportsmen Association",
-    fragment: "resources/pages/about.html",
+    fragment: "/resources/pages/about.html",
     init: null,
   },
   "/facilities": {
     title: "Club Facilities | Sterling Sportsmen Association",
-    fragment: "resources/pages/facilities.html",
+    fragment: "/resources/pages/facilities.html",
     init: initFacilitiesPage,
   },
   "/events": {
     title: "Events & Activities | Sterling Sportsmen Association",
-    fragment: "resources/pages/events.html",
+    fragment: "/resources/pages/events.html",
     init: initEventsPage,
   },
   "/raffles": {
     title: "Upcoming Raffles | Sterling Sportsmen Association",
-    fragment: "resources/pages/raffles.html",
+    fragment: "/resources/pages/raffles.html",
     init: null,
   },
   "/membership": {
     title: "Membership & Application | Sterling Sportsmen Association",
-    fragment: "resources/pages/membership.html",
+    fragment: "/resources/pages/membership.html",
     init: null,
   },
   "/contact": {
     title: "Contact Us | Sterling Sportsmen Association",
-    fragment: "resources/pages/contact.html",
+    fragment: "/resources/pages/contact.html",
     init: initContactPage,
   },
 };
@@ -77,7 +77,7 @@ function normalizePath(pathname) {
 function loadHeaderFooter() {
   const headerContainer = document.getElementById("header-placeholder");
   const headerPromise = headerContainer
-    ? fetch("resources/header.html")
+    ? fetch("/resources/header.html")
         .then(response => {
           if (!response.ok) throw new Error("Header file not found");
           return response.text();
@@ -102,7 +102,7 @@ function loadHeaderFooter() {
 
   const footerContainer = document.getElementById("footer-placeholder");
   const footerPromise = footerContainer
-    ? fetch("resources/footer.html")
+    ? fetch("/resources/footer.html")
         .then(response => {
           if (!response.ok) throw new Error("Footer file not found");
           return response.text();
@@ -249,7 +249,7 @@ function initHomePage() {
   if (monthSelect && calendarContainer) {
     let calendarData = {};
 
-    fetch("resources/calendar-data.json?v=" + Date.now())
+    fetch("/resources/calendar-data.json?v=" + Date.now())
       .then(res => res.json())
       .then(data => {
         calendarData = data;
@@ -355,7 +355,7 @@ function initHomePage() {
   const modalClose = document.getElementById("modal-close");
 
   if (pinnedContainer && newsScrollbox) {
-    fetch("resources/announcements.json?v=" + Date.now())
+    fetch("/resources/announcements.json?v=" + Date.now())
       .then(res => res.json())
       .then(data => {
         pinnedContainer.innerHTML = "";
@@ -492,7 +492,7 @@ async function initEventsPage() {
   if (!upcomingContainer || !pastContainer) return;
 
   try {
-    const res = await fetch("resources/events.json?v=" + Date.now());
+    const res = await fetch("/resources/events.json?v=" + Date.now());
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
     const data = await res.json();
