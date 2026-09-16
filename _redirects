@@ -1,8 +1,0 @@
-/admin/index.html   /admin/              200
-/admin/             /admin/              200
-/admin              /admin/              200
-/application.html   /application         200
-/application        /application         200
-/resources/*        /resources/:splat    200
-/images/*           /images/:splat       200
-/*                  /                    200
