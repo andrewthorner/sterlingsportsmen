@@ -32,8 +32,8 @@
     "events": {
       "3": "Members Meeting @ 7pm",
       "15": "Opening Day of Firearm Deer Season",
-      "21": "Annual Buck Pole @ Arenac County Fair Grounds Event Center | Standish, MI",
-      "17": "Board Members Meeting @ 7pm"
+      "17": "Board Members Meeting @ 7pm",
+      "21": "Annual Buck Pole @ Arenac County Fair Grounds Event Center | Standish, MI"
     }
   },
   "December 2026": {
@@ -41,7 +41,8 @@
     "monthIndex": 11,
     "events": {
       "1": "Members Meeting @ 7pm",
-      "15": "Board Members Meeting @ 7pm"
+      "15": "Board Members Meeting @ 7pm",
+      "25": "Merry Christmas"
     }
   },
   "January 2027": {
