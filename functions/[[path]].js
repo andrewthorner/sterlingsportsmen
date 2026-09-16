@@ -1,5 +1,5 @@
 export async function onRequest(context) {
-  const response = await context.env.ASSETS.fetch(context.request);
+  const response = await context.next();
 
   if (response.status === 404) {
     const shellUrl = new URL(context.request.url);
