@@ -4,7 +4,7 @@ export async function onRequest(context) {
   if (response.status === 404) {
     const shellUrl = new URL(context.request.url);
     shellUrl.pathname = "/index.html";
-    return context.env.ASSETS.fetch(new Request(shellUrl, context.request));
+    return context.next(new Request(shellUrl, context.request));
   }
 
   return response;
