@@ -1,0 +1,58 @@
+  <section class="page-banner">
+    <h1>CLUB EVENTS & ACTIVITIES</h1>
+    <p>Join us for annual banquets, youth hunts, community buck poles, and regular shoots.</p>
+  </section>
+
+  <main class="containere">
+
+    <!-- UPCOMING EVENTS SECTION -->
+    <section class="carde upcoming-section">
+      <h2>Upcoming & Annual Featured Events</h2>
+
+      <!-- Container populated dynamically from resources/events.json -->
+      <div id="upcoming-events-container">
+        <p style="color: #666;">Loading upcoming events...</p>
+      </div>
+    </section>
+
+    <!-- PAST EVENTS SECTION -->
+    <section class="carde">
+      <details class="past-events-accordion">
+        <summary class="accordion-header">
+          <h2>📁 Past Events & Gallery Archive (Click to Expand)</h2>
+          <span class="accordion-icon">▼</span>
+        </summary>
+
+        <div class="accordion-content">
+          <p style="margin-bottom: 20px; color: #555;">
+            Take a look back at highlights, photos, and recaps from our previous club outings and community events:
+          </p>
+
+          <!-- Container populated dynamically from resources/events.json -->
+          <div id="past-events-container">
+            <p style="color: #666;">Loading past events archive...</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- GALLERY LIGHTBOX MODAL -->
+    <div id="gallery-modal" class="modal-overlay">
+      <div class="gallery-modal-content">
+        <button id="gallery-modal-close" class="modal-close-btn">&times;</button>
+        <h3 id="gallery-modal-title">Event Gallery</h3>
+
+        <!-- Main Large Photo View -->
+        <div id="main-photo-container" class="main-photo-container">
+          <button id="gallery-fullscreen-btn" class="fullscreen-btn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">&#10064;</button>
+          <button id="gallery-prev-btn" class="nav-arrow prev-arrow" aria-label="Previous Photo">&#10094;</button>
+          <img id="gallery-main-img" src="" alt="Event Photo Large View">
+          <button id="gallery-next-btn" class="nav-arrow next-arrow" aria-label="Next Photo">&#10095;</button>
+        </div>
+
+        <!-- Horizontal Scrollable Thumbnail Bar -->
+        <div id="gallery-thumbs-scroll" class="thumbs-scroll-row"></div>
+      </div>
+    </div>
+
+  </main>
