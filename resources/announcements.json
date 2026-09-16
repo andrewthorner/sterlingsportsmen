@@ -1,0 +1,29 @@
+[
+  {
+    "id": "meeting-recurring",
+    "title": "✅ MEMBER MONTHLY MEETING EVERY 1ST TUESDAY",
+    "date": "Recurring Monthly",
+    "summary": "All members are encouraged to attend. Meetings begin at 7:00 PM at the clubhouse.",
+    "fullContent": "Monthly membership meetings occur on the first Tuesday of every month at 7:00 PM at the main clubhouse.<br><br>Agenda topics include facility upgrades, upcoming event planning, financial reports, and new member introductions. All active members are encouraged to participate and contribute to ongoing club initiatives.",
+    "pinned": true,
+    "hasPopup": true
+  },
+  {
+    "id": "hunter-safety-instructor",
+    "title": "⚠️ LOOKING FOR HUNTER SAFETY INSTRUCTORS",
+    "date": "Ongoing",
+    "summary": "We are looking for certified Hunter Safety Instructors to lead our upcoming courses.",
+    "fullContent": "We are seeking experienced and certified Hunter Safety Instructors to help us deliver our upcoming courses. If you are interested in volunteering your time and expertise, please contact either contact Chris Gwisdala or email the club at sterlingsportsmen5@gmail.com",
+    "pinned": true,
+    "hasPopup": true
+  },
+  {
+    "id": "raffle-ticket-sales",
+    "title": "⚠️ RAFFLE TICKET SALES NOW OPEN",
+    "date": "Ongoing",
+    "summary": "Tickets for our upcoming 30-Gun Raffle are now available for purchase.",
+    "fullContent": "The Sterling Sportsmen Association is excited to announce the launch of our 30-Gun Raffle! Tickets are now available for purchase at club meetings and events or by contacting a board member. Proceeds from the raffle will support our club's ongoing initiatives and community outreach programs.",
+    "pinned": false,
+    "hasPopup": true
+  }
+]

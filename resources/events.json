@@ -1,0 +1,52 @@
+{
+  "upcoming": [
+    {
+      "id": "event-banquet-2027",
+      "title": "Annual Sportsmen Banquet",
+      "date": "📅 March 13, 2027 | Annual Marquee Gathering",
+      "location": "📍 KC Hall| West Branch, MI",
+      "featured": true,
+      "featuredBadge": "⭐ FEATURED EVENT",
+      "image": "images/gallery/banquet-2026/4.webp",
+      "description": "Our flagship annual celebration! The Sportsmen Banquet is our biggest community event of the year, featuring a full dinner, social gathering, and a massive raffle with dozens of premium firearms, sporting gear, and door prizes.",
+      "extraNote": "Tickets sell out early every year—Stay tuned for when tickets go on sale!"
+    },
+    {
+      "id": "event-buck-pole-2026",
+      "title": "Annual Buck Pole",
+      "date": "📅 November 21, 2026 (Opening Day: November 15, 2026)",
+      "location": "📍 Arenac County Fair Grounds Event Center | Standish, MI",
+      "featured": false,
+      "image": "images/Webp/BuckPole.webp",
+      "description": "Bring your firearm deer season harvest to the Fair Grounds in Standish! Join fellow hunters to hang your buck, compare antlers, win contest prizes, and celebrate Opening Day traditions. The event is put on by the American Legion Post 104 of Standish with support from the Sterling Sportsmen's Club and other local organizations."
+ }
+  ],
+  "past": [
+    {
+      "id": "past-youth-hunt-2026",
+      "title": "Youth Deer Hunt Buck Pole",
+      "date": "September 12, 2026",
+      "thumb": "images/Webp/YouthHunt.webp",
+      "description": "Supporting Michigan's next generation of hunters! We sponsor youth hunters during Michigan's early youth deer season, encouraging safe hunting habits and conservation traditions.",
+      "hasGallery": false    
+    },
+    {
+      "id": "past-banquet-2026",
+      "title": "2026 Sportsmen Banquet Highlights",
+      "date": "March 2026",
+      "thumb": "images/gallery/banquet-2026/10.webp",
+      "description": "A fantastic turnout! Click to view gallery →",
+      "hasGallery": true,
+      "galleryFolder": "images/gallery/banquet-2026",
+      "photoCount": 27
+    },
+    {
+      "id": "past-safety-2025",
+      "title": "2025 Youth Hunter Safety Class",
+      "date": "August 2025",
+      "thumb": "images/Webp/HuntersSaftey.webp",
+      "description": "Our DNR-certified instructors successfully certified 35 young outdoorsmen and women in firearm safety, wildlife conservation, and bowhunting ethics.",
+      "hasGallery": false
+    }
+  ]
+}
