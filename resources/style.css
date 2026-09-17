@@ -29,6 +29,9 @@ a {
 #header-placeholder {
   min-height: 95px; /* Reserves space for desktop header */
   background-color: #1b3823; /* Dark Forest Green background while loading */
+  position: sticky;
+  top: 0;
+  z-index: 500; /* Stays above page content, below modal overlays (z-index: 1000) */
 }
 
 #footer-placeholder {
