@@ -96,6 +96,7 @@ function loadHeaderFooter() {
           }
 
           applyActiveNav(normalizePath(location.pathname));
+          initMobileStickyNav();
         })
         .catch(err => console.error("Error loading header:", err))
     : Promise.resolve();
@@ -126,6 +127,42 @@ function applyActiveNav(path) {
     const linkPath = href.startsWith("/") ? normalizePath(href) : null;
     link.classList.toggle("active", linkPath !== null && linkPath === path);
   });
+}
+
+// On mobile, the nav ribbon should stay pinned to the top of the screen
+// once the logo/title block has scrolled past it. CSS position:sticky
+// can't do this here (its containing box is only as tall as the header
+// itself), so it's toggled with a scroll listener instead.
+function initMobileStickyNav() {
+  const nav = document.querySelector("#header-placeholder nav");
+  if (!nav) return;
+
+  let stickThreshold = null;
+
+  function measureThreshold() {
+    if (nav.classList.contains("nav-stuck")) return;
+    stickThreshold = nav.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function updateStuckState() {
+    if (window.innerWidth > 768) {
+      nav.classList.remove("nav-stuck");
+      return;
+    }
+    if (stickThreshold === null) measureThreshold();
+    nav.classList.toggle("nav-stuck", window.scrollY >= stickThreshold);
+  }
+
+  window.addEventListener("scroll", updateStuckState, { passive: true });
+  window.addEventListener("resize", () => {
+    nav.classList.remove("nav-stuck");
+    stickThreshold = null;
+    measureThreshold();
+    updateStuckState();
+  });
+
+  measureThreshold();
+  updateStuckState();
 }
 
 function closeMobileMenu() {
