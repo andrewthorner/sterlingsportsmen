@@ -1,6 +1,15 @@
 {
   "upcoming": [
     {
+      "id": "event-1792113078757",
+      "title": "Squirrel and Rabit Hunt 2027",
+      "date": "FEBRUARY 13, 2027",
+      "description": "Pre-register on Friday 6:00pm-8:00pm. \nWeighing starts at 3:00pm and Must be back to Sportsman's by 4:00pm (no exceptions). \nYou can weigh a combination of squirrels and rabbits for a max total of 6 for cash and prizes. There will be two divisions, a rabbit division and a squirrel division. In the event of a tie, it will be a draw of cards to determine placement. \nMust follow all state and federal laws. \nWhere you hunt is your responsibility. you can stalk, use dogs, etc. \nCome out for the day at the clubhouse. There will be prizes and food. ",
+      "image": "images/gallery/squirrelhunt2027/1.webp",
+      "featured": false,
+      "location": "Sterling Sportsmen Clubhouse"
+    },
+    {
       "id": "event-banquet-2027",
       "title": "Annual Sportsmen Banquet",
       "date": "📅 March 13, 2027 | Annual Marquee Gathering",
@@ -19,7 +28,7 @@
       "featured": false,
       "image": "images/Webp/BuckPole.webp",
       "description": "Bring your firearm deer season harvest to the Fair Grounds in Standish! Join fellow hunters to hang your buck, compare antlers, win contest prizes, and celebrate Opening Day traditions. The event is put on by the American Legion Post 104 of Standish with support from the Sterling Sportsmen's Club and other local organizations."
- }
+    }
   ],
   "past": [
     {
@@ -28,7 +37,7 @@
       "date": "September 12, 2026",
       "thumb": "images/Webp/YouthHunt.webp",
       "description": "Supporting Michigan's next generation of hunters! We sponsor youth hunters during Michigan's early youth deer season, encouraging safe hunting habits and conservation traditions.",
-      "hasGallery": false    
+      "hasGallery": false
     },
     {
       "id": "past-banquet-2026",
