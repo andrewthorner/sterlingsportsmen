@@ -1,0 +1,9 @@
+.git
+.github
+.claude
+.wrangler
+.gitignore
+.assetsignore
+.fuse_hidden*
+node_modules
+wrangler.jsonc
