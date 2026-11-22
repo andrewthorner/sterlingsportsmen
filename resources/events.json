@@ -1,6 +1,15 @@
 {
   "upcoming": [
     {
+      "id": "event-1795369198300",
+      "title": "MEMBERS ONLY- Big Buck Night",
+      "date": "📅 January 5, 2027",
+      "description": "Members Only, Bring your antlers ",
+      "image": "images/gallery/big-buck-2027/1.webp",
+      "featured": false,
+      "location": "Sterling Sportsmen's Clubhouse"
+    },
+    {
       "id": "event-1792113078757",
       "title": "Squirrel and Rabit Hunt 2027",
       "date": "📅 FEBRUARY 13, 2027",
